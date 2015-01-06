@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Fri Dec 19 11:52:27 CET 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.3.0 - (1405108): instance a816c00e-014a-622d-5cfd-000006b41050 
+on database directory D:\Officiel\FoodCost\DB_388341697823173  with class loader sun.misc.Launcher$AppClassLoader@5e2de80c 
+Loaded from file:/D:/Officiel/FoodCost/Lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_25-b18
+user.dir=D:\Officiel\FoodCost
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
