@@ -23,9 +23,9 @@ public class FoodServer {
             }
             LocateRegistry.createRegistry(1099);
             int cpt = 0;
-            for (FoodServeurImpl draw : folders) {
+            for (FoodServeurImpl srv : folders) {
                 cpt++;
-                Naming.rebind("FoodSocket" + cpt, draw);
+                Naming.rebind("FoodSocket" + cpt, srv);
             }
             System.out.println("Food Server is ready. 100 Sockets are available");
             ServeurControle controle = new ServeurControle();

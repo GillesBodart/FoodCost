@@ -19,7 +19,6 @@ import common.seldto.CategorieSel;
 import common.seldto.CommandeSel;
 import common.seldto.RecetteSel;
 import common.seldto.SousCategorieSel;
-import java.util.List;
 import java.util.HashMap;
 import java.util.List;
 
