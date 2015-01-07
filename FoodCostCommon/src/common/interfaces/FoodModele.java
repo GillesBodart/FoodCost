@@ -33,17 +33,16 @@ public interface FoodModele extends Remote {
 
     public List getAll(Category cat)  throws RemoteException;
     public GenericDto getByName(Category cat, String name)  throws RemoteException;
-    public GenericDto getById(Category cat, int id)  throws RemoteException;
+    public GenericDto getById(Category cat, GenericDto id)  throws RemoteException;
     public List getBySel(Category cat, GenericSel sel)  throws RemoteException;
     public int add( Category cat, GenericDto rec) throws RemoteException;
     public int getNbElem( Category cat, GenericDto rec) throws RemoteException;
-    public int update( Category cat, GenericDto rec) throws RemoteException;
+    public int update( Category cat, GenericDto rec1,GenericDto rec2) throws RemoteException;
     public int delete(CommandeDto com, ComposantDto id) throws RemoteException;
     public int delete(RecetteDto rec, IngredientDto id) throws RemoteException;
 
     public List<IngredientDto> getIngredientsFromCommande(CommandeDto com) throws RemoteException;
 
-    public void updateDBFromRecette(RecetteDto rec) throws RemoteException;
 
 }
 

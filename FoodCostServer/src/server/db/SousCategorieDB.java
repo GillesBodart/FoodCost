@@ -31,7 +31,7 @@ public class SousCategorieDB {
         }
     }
 
-    public static Collection<SousCategorieDto> getSousCategorie(SousCategorieSel sel) throws RestoDbException {
+    public static List<SousCategorieDto> getSousCategorie(SousCategorieSel sel) throws RestoDbException {
         return rechCollection(sel);
 
     }

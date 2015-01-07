@@ -44,7 +44,7 @@ public class CommandeDB {
 
     }
 
-    public static Collection<CommandeDto> getCommande(CommandeSel sel) throws RestoDbException {
+    public static List<CommandeDto> getCommande(CommandeSel sel) throws RestoDbException {
         return rechCollection(sel);
 
     }

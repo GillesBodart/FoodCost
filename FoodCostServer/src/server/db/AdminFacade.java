@@ -497,11 +497,11 @@ public class AdminFacade {
             }
         }
     }
-    
+
     public static int modifCategorie(CategorieDto cat) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            int ret =  CategorieDB.updateDb(cat);
+            int ret = CategorieDB.updateDb(cat);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -515,7 +515,8 @@ public class AdminFacade {
             }
         }
     }
-        public static int modifSousCategorie(SousCategorieDto sousCat) throws RestoBusinessException {
+
+    public static int modifSousCategorie(SousCategorieDto sousCat) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
             int ret = SousCategorieDB.updateDb(sousCat);
@@ -531,8 +532,9 @@ public class AdminFacade {
                 throw new RestoBusinessException("Ajout de catégorie impossible! \n" + msg);
             }
         }
-        }
-        public static int modifAliment(AlimentDto ali) throws RestoBusinessException {
+    }
+
+    public static int modifAliment(AlimentDto ali) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
             int ret = AlimentDB.updateDb(ali);
@@ -548,28 +550,13 @@ public class AdminFacade {
                 throw new RestoBusinessException("Modification d'aliment impossible ! \n" + msg);
             }
         }
-        }
-        public static int modifCommande(CategorieDto categorieDto) throws RestoBusinessException {
+    }
+
+    public static int modifCommande(CommandeDto commandeDto) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            int ret = CategorieDB.insertDb(categorieDto);
-            DBManager.valideTransaction();
-            return ret;
-        } catch (RestoDbException eDB) {
-            String msg = eDB.getMessage();
-            try {
-                DBManager.annuleTransaction();
-            } catch (RestoDbException ex) {
-                msg = ex.getMessage() + "\n" + msg;
-            } finally {
-                throw new RestoBusinessException("Ajout de catégorie impossible! \n" + msg);
-            }
-        }
-        }
-        public static int modifListeAli(RecetteDto rec,IngredientDto mod) throws RestoBusinessException {
-        try {
-            DBManager.startTransaction();
-            int ret =  ListeAlimentDB.updateIngreDb(rec.getListeAliments(), mod);
+            CommandeDB.updateDb(commandeDto);
+            int ret = 1;
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -583,7 +570,26 @@ public class AdminFacade {
             }
         }
     }
-        public static int modifListeRecette(CommandeDto com,ComposantDto mod) throws RestoBusinessException {
+
+    public static int modifListeAli(RecetteDto rec, IngredientDto mod) throws RestoBusinessException {
+        try {
+            DBManager.startTransaction();
+            int ret = ListeAlimentDB.updateIngreDb(rec.getListeAliments(), mod);
+            DBManager.valideTransaction();
+            return ret;
+        } catch (RestoDbException eDB) {
+            String msg = eDB.getMessage();
+            try {
+                DBManager.annuleTransaction();
+            } catch (RestoDbException ex) {
+                msg = ex.getMessage() + "\n" + msg;
+            } finally {
+                throw new RestoBusinessException("Ajout de catégorie impossible! \n" + msg);
+            }
+        }
+    }
+
+    public static int modifListeRecette(CommandeDto com, ComposantDto mod) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
             int ret = ListeRecetteDB.updateCompoDb(com.getListeRecettes(), mod);
@@ -602,7 +608,7 @@ public class AdminFacade {
     }
 
     public static int supprimeCompo(CommandeDto com, ComposantDto id) throws RestoBusinessException {
-        
+
         try {
             DBManager.startTransaction();
             int ret = ListeRecetteDB.deleteCompoDb(com.getListeRecettes(), id);
@@ -621,7 +627,7 @@ public class AdminFacade {
     }
 
     public static int supprimeIngre(RecetteDto rec, IngredientDto id) throws RestoBusinessException {
-        
+
         try {
             DBManager.startTransaction();
             int ret = ListeAlimentDB.deleteIngreDb(rec.getListeAliments(), id);
@@ -640,11 +646,11 @@ public class AdminFacade {
     }
 
     public static void majDBFromRecette(RecetteDto rec) throws RestoBusinessException {
-       
-                try {
+
+        try {
             DBManager.startTransaction();
             ListeRecetteDB.majDB(rec);
-                RecetteDB.updateDb(rec);
+            RecetteDB.updateDb(rec);
             DBManager.valideTransaction();
         } catch (RestoDbException eDB) {
             String msg = eDB.getMessage();
@@ -657,7 +663,5 @@ public class AdminFacade {
             }
         }
     }
-    
-    
-    
+
 }
