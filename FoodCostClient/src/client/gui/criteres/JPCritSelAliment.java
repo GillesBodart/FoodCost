@@ -5,6 +5,9 @@
 package client.gui.criteres;
 
 import be.esi.alg2.gui.outils.JPCritSelGenerique;
+import common.dto.SousCategorieDto;
+import common.exception.RestoDTOException;
+import common.seldto.AlimentSel;
 import javax.swing.JOptionPane;
 
 

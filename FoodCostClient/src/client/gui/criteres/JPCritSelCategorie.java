@@ -5,7 +5,7 @@
 package client.gui.criteres;
 
 import be.esi.alg2.gui.outils.JPCritSelGenerique;
-import resto.seldto.CategorieSel;
+import common.seldto.CategorieSel;
 
 /**
  *

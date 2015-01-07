@@ -6,10 +6,10 @@ package client.gui.objets.dialogs;
 
 import javax.swing.ImageIcon;
 import client.gui.objets.dialogs.modif.ModifComposant;
+import common.dto.ComposantDto;
+import common.dto.ListeRecetteDto;
 import javax.swing.JOptionPane;
 import resto.db.ListeRecetteDB;
-import resto.persistance.dto.ComposantDto;
-import resto.persistance.dto.ListeRecetteDto;
 
 /**
  *

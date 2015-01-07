@@ -4,7 +4,6 @@
  */
 package common.dto;
 
-import be.esi.alg2.dto.Dto;
 import common.exception.RestoDTOException;
 import common.tools.CommonTool;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Dto d'instanciation d'un rayon
  */
-public class RecetteDto extends Dto<Integer> {
+public class RecetteDto extends GenericDto<Integer> {
 
     private String libelle;
     private Double recPrix;

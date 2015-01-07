@@ -7,8 +7,8 @@ package client.gui.objets.dialogs.consults;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import client.gui.objets.dialogs.MonJFileChooser;
-import resto.outils.Outils;
-import resto.persistance.dto.CommandeDto;
+import common.dto.CommandeDto;
+import common.tools.CommonTool;
 
 /**
  *
@@ -31,7 +31,7 @@ public class MaCommande extends javax.swing.JDialog {
         this(parent, modal);
         this.com = com;
         this.jLabelTitre.setText(com.getLibelle());
-        this.jLabelPrix.setText("" + Outils.round(com.getRecPrix(), 4));
+        this.jLabelPrix.setText("" + CommonTool.round(com.getRecPrix(), 4));
         this.jListeRecette1.setElmnt(com.getListeRecettes(), false);
         setLocationRelativeTo(null);
         setTitle("Apperçu de la commande du client : " + com.getLibelle());
@@ -119,7 +119,7 @@ public class MaCommande extends javax.swing.JDialog {
        try {
             MonJFileChooser jfc = new MonJFileChooser();
             jfc.setVisible(true);
-            Outils.enregistrer(jfc.getUrl(), com.getLibelle(), com.getContenu());
+            CommonTool.enregistrer(jfc.getUrl(), com.getLibelle(), com.getContenu());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Un problème d'acces au fichier est survenu ... \n" + ex.getMessage(), "Error Massage",

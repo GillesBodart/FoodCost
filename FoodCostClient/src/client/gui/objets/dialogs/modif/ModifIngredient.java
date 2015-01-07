@@ -4,13 +4,12 @@
  */
 package client.gui.objets.dialogs.modif;
 
+import common.dto.IngredientDto;
+import common.dto.ListeAlimentDto;
+import common.tools.Quantity;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import resto.db.ListeAlimentDB;
-import resto.outils.Quantite;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.ListeAlimentDto;
 
 /**
  *
@@ -90,7 +89,7 @@ public class ModifIngredient extends javax.swing.JDialog {
 
         jComboBox1.setFont(new java.awt.Font("Traditional Arabic", 0, 24)); // NOI18N
         if (selectAliment1.getObjectSelected() != null){
-            jComboBox1.setModel(new DefaultComboBoxModel(Quantite.values(selectAliment1.getObjectSelected().getUnit())));
+            jComboBox1.setModel(new DefaultComboBoxModel(Quantity.values(selectAliment1.getObjectSelected().getUnit())));
         }
 
         jToggleButton2.setFont(new java.awt.Font("Traditional Arabic", 0, 24)); // NOI18N
@@ -160,7 +159,7 @@ public class ModifIngredient extends javax.swing.JDialog {
             if (reply == JOptionPane.YES_OPTION) {
                 ingre.setId(selectAliment1.getObjectSelected());
                 ingre.setQte(Integer.parseInt(jTextQuan.getText()));
-                ingre.setUnit((Quantite) jComboBox1.getSelectedItem());
+                ingre.setUnit((Quantity) jComboBox1.getSelectedItem());
                 dispose();
             }
         } catch (Exception ex) {
@@ -173,7 +172,7 @@ public class ModifIngredient extends javax.swing.JDialog {
 
     private void selectAliment1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_selectAliment1PropertyChange
         if (selectAliment1.getObjectSelected() != null) {
-            jComboBox1.setModel(new DefaultComboBoxModel(Quantite.values(selectAliment1.getObjectSelected().getUnit())));
+            jComboBox1.setModel(new DefaultComboBoxModel(Quantity.values(selectAliment1.getObjectSelected().getUnit())));
         }
     }//GEN-LAST:event_selectAliment1PropertyChange
 

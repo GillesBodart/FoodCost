@@ -4,26 +4,25 @@
  */
 package common.dto;
 
-import be.esi.alg2.dto.Dto;
 import common.exception.RestoDTOException;
-import common.tools.Unite;
+import common.tools.Unit;
 
 /**
  * Dto d'instanciation d'un rayon
  */
-public class AlimentDto extends Dto<Integer> {
+public class AlimentDto extends GenericDto<Integer> {
 
     private String libelle;
     private String fournisseur;
     private Double aliPrix;
     private SousCategorieDto categorie;
-    private Unite unit;
+    private Unit unit;
 
     public AlimentDto(String libelle) {
         this.libelle = libelle.toLowerCase();
     }
 
-    public AlimentDto(Integer aliId, String libelle, SousCategorieDto categorie, Double aliPrix, String fournisseur, Unite unit) throws RestoDTOException {
+    public AlimentDto(Integer aliId, String libelle, SousCategorieDto categorie, Double aliPrix, String fournisseur, Unit unit) throws RestoDTOException {
         if (categorie == null) {
             throw new RestoDTOException("Instanciation d'Aliment: Catégorie non fournie");
         }
@@ -73,7 +72,7 @@ public class AlimentDto extends Dto<Integer> {
         this.aliPrix = aliPrix;
     }
 
-    public Unite getUnit() {
+    public Unit getUnit() {
         return unit;
     }
 
@@ -81,7 +80,7 @@ public class AlimentDto extends Dto<Integer> {
         return unit.toString();
     }
 
-    public void setUnit(Unite unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 

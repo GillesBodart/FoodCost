@@ -5,10 +5,10 @@
 package client.gui.objets.element;
 
 import client.gui.objets.dialogs.ChoixModifComp;
-import resto.outils.Outils;
-import resto.persistance.dto.ComposantDto;
-import resto.persistance.dto.ListeRecetteDto;
-import resto.persistance.dto.ModificationCompDto;
+import common.dto.ComposantDto;
+import common.dto.ListeRecetteDto;
+import common.dto.ModificationCompDto;
+import common.tools.CommonTool;
 
 /**
  *
@@ -86,7 +86,7 @@ public class JBoutComp extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void maj() {
-        String buff = ing.getId().getLibelle() + " : " + ing.getQte() + "  " + Outils.round(ing.getPrix(), 4) + " €";
+        String buff = ing.getId().getLibelle() + " : " + ing.getQte() + "  " + CommonTool.round(ing.getPrix(), 4) + " €";
         jButtonIn.setText(buff);
     }
 

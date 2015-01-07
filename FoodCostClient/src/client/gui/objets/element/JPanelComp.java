@@ -4,8 +4,8 @@
  */
 package client.gui.objets.element;
 
-import resto.outils.Outils;
-import resto.persistance.dto.ComposantDto;
+import common.dto.ComposantDto;
+import common.tools.CommonTool;
 
 /**
  *
@@ -20,7 +20,7 @@ public class JPanelComp extends javax.swing.JPanel {
         initComponents();
         jLabelNom.setText(ing.getId().getLibelle());
         jLabelQuantité.setText("" + ing.getQte());
-        jLabelPrix.setText(Outils.round(ing.getPrix(), 4) + " €");
+        jLabelPrix.setText(CommonTool.round(ing.getPrix(), 4) + " €");
 
     }
 

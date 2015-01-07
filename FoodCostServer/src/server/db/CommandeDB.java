@@ -4,19 +4,17 @@
  */
 package server.db;
 
-import resto.persistance.dto.CommandeDto;
-import resto.exception.RestoDbException;
-import resto.seldto.CommandeSel;
+import common.dto.CommandeDto;
+import common.dto.ListeRecetteDto;
+import common.dto.RecetteDto;
+import common.exception.RestoDTOException;
+import common.exception.RestoDbException;
+import common.seldto.CommandeSel;
+import common.seldto.ListeRecetteSel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import resto.exception.RestoDTOException;
-import resto.persistance.dto.RecetteDto;
-import resto.persistance.dto.ListeRecetteDto;
-import resto.seldto.ListeRecetteSel;
 
 /**
  * Classe d'accès au gestionnaire de persistance pour les Catégories
@@ -106,7 +104,7 @@ public class CommandeDB {
             java.sql.ResultSet rs = stmt.executeQuery();
             //java.sql.ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                al.add(new CommandeDto(rs.getInt("comId"), rs.getString("comNom"), ListeRecetteDB.getListeRecette(rs.getInt("comLstRec")), rs.getDouble("comPrix")));
+                al.add(new CommandeDto(rs.getInt("comId"), rs.getString("comNom"), ListeRecetteDB.getListeRecetteInt(rs.getInt("comLstRec")), rs.getDouble("comPrix")));
 
             }
 
@@ -188,12 +186,8 @@ public class CommandeDB {
     }
 
     public static void majDB(RecetteDto rct) throws RestoDbException {
-        try {
-            for (ListeRecetteDto list : ListeRecetteDB.getListeRecetteWiRct(new ListeRecetteSel(0, 0, rct.getId()))) {
-                majCommandeListe(list, ListeRecetteDB.getPrix(new ListeRecetteSel(list.getId(), 0, 0)));
-            }
-        } catch (RestoDbException ex) {
-            throw new RestoDbException("Commande, modification impossible:\n" + ex.getMessage());
+        for (ListeRecetteDto list : ListeRecetteDB.getListeRecetteWiRct(new ListeRecetteSel(0, 0, rct.getId()))) {
+            majCommandeListe(list, ListeRecetteDB.getPrix(new ListeRecetteSel(list.getId(), 0, 0)));
         }
     }
 }

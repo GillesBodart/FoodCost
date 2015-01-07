@@ -4,9 +4,9 @@
  */
 package server.db;
 
-import resto.persistance.dto.CategorieDto;
-import resto.exception.RestoDbException;
-import resto.seldto.CategorieSel;
+import common.dto.CategorieDto;
+import common.exception.RestoDbException;
+import common.seldto.CategorieSel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;

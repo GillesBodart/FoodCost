@@ -4,14 +4,14 @@
  */
 package client.gui.objets.dialogs.ajouts;
 
+import common.dto.AlimentDto;
+import common.exception.RestoBusinessException;
+import common.exception.RestoDTOException;
+import common.tools.CommonTool;
+import common.tools.Unit;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
-import resto.exception.RestoBusinessException;
-import resto.exception.RestoDTOException;
-import resto.outils.Outils;
-import resto.outils.Unite;
-import resto.persistance.dto.AlimentDto;
 
 /**
  *
@@ -85,7 +85,7 @@ public class AjoutAliment extends javax.swing.JDialog {
         });
 
         jComboBox1.setFont(new java.awt.Font("Traditional Arabic", 0, 24)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Unite.values()));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(Unit.values()));
 
         jLabel5.setFont(new java.awt.Font("Traditional Arabic", 0, 24)); // NOI18N
         jLabel5.setText("Le/La");
@@ -150,7 +150,7 @@ public class AjoutAliment extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            AdminFacade.AjoutAliment(new AlimentDto(0, jTextNom.getText(), selectSousCategorie1.getObjectSelected(), Outils.round(Double.parseDouble(jTextPrix.getText()), 4), jTextFou.getText(), (Unite) jComboBox1.getSelectedItem()));
+            AdminFacade.AjoutAliment(new AlimentDto(0, jTextNom.getText(), selectSousCategorie1.getObjectSelected(), CommonTool.round(Double.parseDouble(jTextPrix.getText()), 4), jTextFou.getText(), (Unit) jComboBox1.getSelectedItem()));
             this.dispose();
         } catch (NumberFormatException | RestoDTOException | RestoBusinessException ex) {
             JOptionPane.showMessageDialog(null,

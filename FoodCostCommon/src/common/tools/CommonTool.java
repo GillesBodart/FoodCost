@@ -21,76 +21,76 @@ public class CommonTool {
         return Math.round(interestedInZeroDPs) / multipicationFactor;
     }
 
-    public static Unite getUnite(String nom) {
-        Unite elm = null;
+    public static Unit getUnite(String nom) {
+        Unit elm = null;
         if (nom.equals("Kg")) {
-            elm = Unite.KG;
+            elm = Unit.KG;
         }
         if (nom.equals("L")) {
-            elm = Unite.L;
+            elm = Unit.L;
         }
         if (nom.equals("Pièce")) {
-            elm = Unite.PCE;
+            elm = Unit.PCE;
         }
         if (nom.equals("Heure")) {
-            elm = Unite.H;
+            elm = Unit.H;
         }
         return elm;
     }
 
-    public static Quantite getQte(String nom) {
-        Quantite elm = null;
-        if (nom.equals(Quantite.G.toString())) {
-            elm = Quantite.G;
+    public static Quantity getQte(String nom) {
+        Quantity elm = null;
+        if (nom.equals(Quantity.G.toString())) {
+            elm = Quantity.G;
         }
-        if (nom.equals(Quantite.KG.toString())) {
-            elm = Quantite.KG;
+        if (nom.equals(Quantity.KG.toString())) {
+            elm = Quantity.KG;
         }
-        if (nom.equals(Quantite.ML.toString())) {
-            elm = Quantite.ML;
+        if (nom.equals(Quantity.ML.toString())) {
+            elm = Quantity.ML;
         }
-        if (nom.equals(Quantite.BOUT1.toString())) {
-            elm = Quantite.BOUT1;
+        if (nom.equals(Quantity.BOUT1.toString())) {
+            elm = Quantity.BOUT1;
         }
-        if (nom.equals(Quantite.BOUT2.toString())) {
-            elm = Quantite.BOUT1;
+        if (nom.equals(Quantity.BOUT2.toString())) {
+            elm = Quantity.BOUT1;
         }
-        if (nom.equals(Quantite.BOUT3.toString())) {
-            elm = Quantite.BOUT1;
+        if (nom.equals(Quantity.BOUT3.toString())) {
+            elm = Quantity.BOUT1;
         }
-        if (nom.equals(Quantite.BOUT4.toString())) {
-            elm = Quantite.BOUT1;
+        if (nom.equals(Quantity.BOUT4.toString())) {
+            elm = Quantity.BOUT1;
         }
-        if (nom.equals(Quantite.CC.toString())) {
-            elm = Quantite.CC;
+        if (nom.equals(Quantity.CC.toString())) {
+            elm = Quantity.CC;
         }
-        if (nom.equals(Quantite.CS.toString())) {
-            elm = Quantite.CS;
+        if (nom.equals(Quantity.CS.toString())) {
+            elm = Quantity.CS;
         }
-        if (nom.equals(Quantite.PCE.toString())) {
-            elm = Quantite.PCE;
+        if (nom.equals(Quantity.PCE.toString())) {
+            elm = Quantity.PCE;
         }
-        if (nom.equals(Quantite.MIN.toString())) {
-            elm = Quantite.MIN;
+        if (nom.equals(Quantity.MIN.toString())) {
+            elm = Quantity.MIN;
         }
         return elm;
     }
 
-    public static Quantite stand(Unite unit) {
+    public static Quantity stand(Unit unit) {
 
-        Quantite elm = null;
+        Quantity elm = null;
         switch (unit) {
             case KG:
-                elm = Quantite.G;
+                elm = Quantity.G;
                 break;
             case L:
-                elm = Quantite.ML;
+                elm = Quantity.ML;
                 break;
             case PCE:
-                elm = Quantite.PCE;
+                elm = Quantity.PCE;
                 break;
             case H:
-                elm = Quantite.MIN;
+                elm = Quantity.MIN;
                 break;
         }
         return elm;

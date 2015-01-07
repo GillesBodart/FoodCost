@@ -4,25 +4,25 @@
  */
 package server.db;
 
-import resto.exception.RestoDbException;
+import common.dto.AlimentDto;
+import common.dto.ComposantDto;
+import common.dto.IngredientDto;
+import common.dto.ListeRecetteDto;
+import common.dto.RecetteDto;
+import common.exception.RestoDbException;
+import common.seldto.ListeRecetteSel;
+import common.tools.CommonTool;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import resto.outils.Outils;
-import resto.persistance.dto.AlimentDto;
-import resto.persistance.dto.ComposantDto;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.ListeRecetteDto;
-import resto.persistance.dto.RecetteDto;
-import resto.seldto.ListeRecetteSel;
 
 /**
  * Classe d'accès au gestionnaire de persistance pour les Liste de recette
  */
 public class ListeRecetteDB {
 
-    public static ListeRecetteDto getListeRecette(int id) throws RestoDbException {
+    public static ListeRecetteDto getListeRecetteInt(int id) throws RestoDbException {
         if (id <= 0) {
             throw new RestoDbException("Instanciation de Liste de recette impossible");
         }
@@ -260,7 +260,7 @@ public class ListeRecetteDB {
         for (Integer id : map.keySet()) {
             try {
                 elem = AlimentDB.getAliment(id);
-                liste.add(new IngredientDto(elem, map.get(id).intValue(), Outils.stand(elem.getUnit())));
+                liste.add(new IngredientDto(elem, map.get(id).intValue(), CommonTool.stand(elem.getUnit())));
             } catch (RestoDbException ex) {
                 throw new RestoDbException("instanciation de Liste d'ingrédients impossible.");
             }

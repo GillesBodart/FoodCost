@@ -6,27 +6,27 @@ package common.seldto;
 
 import common.dto.SousCategorieDto;
 import common.exception.RestoDTOException;
-import common.tools.Unite;
+import common.tools.Unit;
 
 /**
  * Classe d'instanciation de critères de sélection de marques Le critère complet
  * correspond au et logique de toutes les valeurs sgnificatives données
  */
-public class AlimentSel {
+public class AlimentSel extends GenericSel{
 
     private String libelle;
     private String fournisseur;
     private Double aliPrix;
     private SousCategorieDto categorie;
     private Integer id;
-    private Unite unit;
+    private Unit unit;
 
     public AlimentSel(Integer id, String libelle) {
         this.id = id;
         this.libelle = libelle.toLowerCase();
     }
 
-    public AlimentSel(Integer aliId, String libelle, SousCategorieDto categorie, Double aliPrix, String fournisseur, Unite unit) throws RestoDTOException {
+    public AlimentSel(Integer aliId, String libelle, SousCategorieDto categorie, Double aliPrix, String fournisseur, Unit unit) throws RestoDTOException {
         this.id = aliId;
         this.libelle = libelle.toLowerCase();
         this.categorie = categorie;
@@ -76,11 +76,11 @@ public class AlimentSel {
         this.categorie = categorie;
     }
 
-    public Unite getUnit() {
+    public Unit getUnit() {
         return unit;
     }
 
-    public void setUnit(Unite unit) {
+    public void setUnit(Unit unit) {
         this.unit = unit;
     }
 }

@@ -4,9 +4,9 @@
  */
 package client.gui.objets.dialogs.ajouts;
 
+import common.dto.ComposantDto;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import resto.persistance.dto.ComposantDto;
 
 /**
  *

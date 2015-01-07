@@ -4,17 +4,16 @@
  */
 package common.dto;
 
-import be.esi.alg2.dto.Dto;
 import common.exception.RestoDTOException;
-import common.tools.Quantite;
+import common.tools.Quantity;
 
 /**
  * Dto d'instanciation d'une catégorie
  */
-public class IngredientDto extends Dto<AlimentDto> implements Comparable{
+public class IngredientDto extends GenericDto<AlimentDto> implements Comparable{
 
     private Integer qte;
-    private Quantite unit;
+    private Quantity unit;
 
     /**
      * Instanciation d'une catégorie persistante
@@ -22,7 +21,7 @@ public class IngredientDto extends Dto<AlimentDto> implements Comparable{
      * @param id identifiant de la catégorie
      * @param nom nomellé de la catégorie
      */
-    public IngredientDto(AlimentDto id, Integer qte, Quantite val) {
+    public IngredientDto(AlimentDto id, Integer qte, Quantity val) {
         this.id = id;
         this.qte = qte;
         this.unit = val;
@@ -51,11 +50,11 @@ public class IngredientDto extends Dto<AlimentDto> implements Comparable{
 
     }
 
-    public Quantite getUnit() {
+    public Quantity getUnit() {
         return unit;
     }
 
-    public void setUnit(Quantite unit) {
+    public void setUnit(Quantity unit) {
         this.unit = unit;
     }
 

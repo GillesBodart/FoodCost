@@ -6,11 +6,12 @@ package common.seldto;
 
 import common.dto.CategorieDto;
 import common.exception.RestoDTOException;
+import java.io.Serializable;
 
 /**
  * Dto d'instanciation d'une catégorie
  */
-public class SousCategorieSel {
+public class SousCategorieSel extends GenericSel{
 
     private Integer id;
     private String nom;

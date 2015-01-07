@@ -10,13 +10,13 @@ import be.esi.alg2.gui.outils.MaJTableInitialisationException;
 import be.esi.alg2.gui.outils.SelectObject;
 import java.util.Collection;
 import resto.business.AdminFacade;
-import resto.exception.RestoBusinessException;
-import resto.exception.RestoDTOException;
 import client.gui.criteres.JPCritSelRecette;
 import client.gui.recherche.JDRechercheRecette;
 import client.gui.table.MaJTableRecette;
-import resto.persistance.dto.RecetteDto;
-import resto.seldto.RecetteSel;
+import common.dto.RecetteDto;
+import common.exception.RestoBusinessException;
+import common.exception.RestoDTOException;
+import common.seldto.RecetteSel;
 
 /**
  *

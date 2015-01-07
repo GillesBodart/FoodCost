@@ -1,20 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package server.db;
 
+import common.dto.AlimentDto;
+import common.dto.SousCategorieDto;
+import common.exception.RestoDTOException;
+import common.exception.RestoDbException;
+import common.seldto.AlimentSel;
+import common.seldto.SousCategorieSel;
+import common.tools.CommonTool;
 import java.sql.SQLException;
-import resto.persistance.dto.AlimentDto;
-import resto.exception.RestoDbException;
-import resto.seldto.AlimentSel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import resto.exception.RestoDTOException;
-import resto.outils.Outils;
-import resto.persistance.dto.SousCategorieDto;
-import resto.seldto.SousCategorieSel;
+
 
 /**
  * Classe d'accès au gestionnaire de persistance pour les Catégories
@@ -25,7 +22,7 @@ public class AlimentDB {
         return rechCollection(new AlimentSel(0));
     }
 
-    public static Collection<AlimentDto> getAliment(AlimentSel sel) throws RestoDbException {
+    public static List<AlimentDto> getAliment(AlimentSel sel) throws RestoDbException {
         if (sel.getSousCategorie() == null || sel.getSousCategorie().getNom().equalsIgnoreCase("")) {
             return rechCollection(sel);
         }
@@ -102,7 +99,7 @@ public class AlimentDB {
             java.sql.ResultSet rs = stmt.executeQuery();
             //java.sql.ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                al.add(new AlimentDto(rs.getInt("aliId"), rs.getString("aliNom"), SousCategorieDB.getSousCategorie(rs.getInt("aliCat")), rs.getDouble("aliPrix"), rs.getString("aliFou"), Outils.getUnite(rs.getString("aliUnit"))));
+                al.add(new AlimentDto(rs.getInt("aliId"), rs.getString("aliNom"), SousCategorieDB.getSousCategorie(rs.getInt("aliCat")), rs.getDouble("aliPrix"), rs.getString("aliFou"), CommonTool.getUnite(rs.getString("aliUnit"))));
             }
         } catch (java.sql.SQLException eSQL) {
             throw new RestoDbException("Instanciation d'Aliment impossible:\rSQLException: " + eSQL.getMessage());
@@ -171,7 +168,7 @@ public class AlimentDB {
                 java.sql.ResultSet rs = stmt.executeQuery();
                 //java.sql.ResultSet rs = stmt.executeQuery(query);
                 while (rs.next()) {
-                    al.add(new AlimentDto(rs.getInt("aliId"), rs.getString("aliNom"), SousCategorieDB.getSousCategorie(rs.getInt("aliCat")), rs.getDouble("aliPrix"), rs.getString("aliFou"), Outils.getUnite(rs.getString("aliUnit"))));
+                    al.add(new AlimentDto(rs.getInt("aliId"), rs.getString("aliNom"), SousCategorieDB.getSousCategorie(rs.getInt("aliCat")), rs.getDouble("aliPrix"), rs.getString("aliFou"), CommonTool.getUnite(rs.getString("aliUnit"))));
                 }
             }
         } catch (java.sql.SQLException eSQL) {

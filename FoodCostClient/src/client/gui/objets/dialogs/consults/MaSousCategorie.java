@@ -4,11 +4,11 @@
  */
 package client.gui.objets.dialogs.consults;
 
+import common.dto.SousCategorieDto;
+import common.exception.RestoBusinessException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
-import resto.exception.RestoBusinessException;
-import resto.persistance.dto.SousCategorieDto;
 
 /**
  *

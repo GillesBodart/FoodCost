@@ -4,10 +4,12 @@
  */
 package common.seldto;
 
+import java.io.Serializable;
+
 /**
  * Dto d'instanciation d'une catégorie
  */
-public class ListeAlimentSel {
+public class ListeAlimentSel extends GenericSel{
 
     private Integer id;
     private Integer numLigne;

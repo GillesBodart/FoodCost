@@ -5,9 +5,9 @@
 package client.gui.objets.element;
 
 import client.gui.objets.dialogs.ChoixModifIngre;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.ListeAlimentDto;
-import resto.persistance.dto.ModificationIngreDto;
+import common.dto.IngredientDto;
+import common.dto.ListeAlimentDto;
+import common.dto.ModificationIngreDto;
 
 /**
  *

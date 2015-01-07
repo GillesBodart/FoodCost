@@ -4,10 +4,12 @@
  */
 package common.exception;
 
+import java.io.Serializable;
+
 /**
  * Exception lanc&eacute;e par une m&eacute;thode d'une 'Facade'
  */
-public class RestoException extends Exception {
+public class RestoException extends Exception implements Serializable{
 
     /**
      * Creates a new instance of

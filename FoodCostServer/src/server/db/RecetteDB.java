@@ -4,20 +4,19 @@
  */
 package server.db;
 
-import resto.persistance.dto.RecetteDto;
-import resto.exception.RestoDbException;
-import resto.seldto.RecetteSel;
+import common.dto.AlimentDto;
+import common.dto.ListeAlimentDto;
+import common.dto.RecetteDto;
+import common.exception.RestoDTOException;
+import common.exception.RestoDbException;
+import common.seldto.ListeAlimentSel;
+import common.seldto.RecetteSel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import resto.exception.RestoDTOException;
-import resto.persistance.dto.AlimentDto;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.ListeAlimentDto;
-import resto.seldto.ListeAlimentSel;
 
 /**
  * Classe d'accès au gestionnaire de persistance pour les Catégories
@@ -62,7 +61,7 @@ public class RecetteDB {
 
     }
 
-    public static Collection<RecetteDto> getRecette(RecetteSel sel) throws RestoDbException {
+    public static List<RecetteDto> getRecette(RecetteSel sel) throws RestoDbException {
         return rechCollection(sel);
 
     }

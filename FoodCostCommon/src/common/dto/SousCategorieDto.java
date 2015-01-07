@@ -4,13 +4,12 @@
  */
 package common.dto;
 
-import be.esi.alg2.dto.Dto;
 import common.exception.RestoDTOException;
 
 /**
  * Dto d'instanciation d'une catégorie
  */
-public class SousCategorieDto extends Dto<Integer> {
+public class SousCategorieDto extends GenericDto<Integer> {
 
     private String nom;
     private CategorieDto categorie;

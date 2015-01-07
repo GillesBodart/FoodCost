@@ -4,10 +4,10 @@
  */
 package client.gui.objets.dialogs.ajouts;
 
+import common.dto.CategorieDto;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
-import resto.persistance.dto.CategorieDto;
 
 /**
  *

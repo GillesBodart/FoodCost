@@ -4,7 +4,7 @@
  */
 package server.db;
 
-import resto.exception.RestoDbException;
+import common.exception.RestoDbException;
 
 /**
  * Classe d'accès au gestionnaire de persistance pour les Séquences

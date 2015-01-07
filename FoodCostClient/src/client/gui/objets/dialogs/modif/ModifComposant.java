@@ -4,10 +4,10 @@
  */
 package client.gui.objets.dialogs.modif;
 
+import common.dto.ComposantDto;
+import common.dto.ListeRecetteDto;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import resto.persistance.dto.ComposantDto;
-import resto.persistance.dto.ListeRecetteDto;
 
 /**
  *

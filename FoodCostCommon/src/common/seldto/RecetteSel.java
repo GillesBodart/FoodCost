@@ -6,11 +6,12 @@ package common.seldto;
 
 import common.dto.ListeAlimentDto;
 import common.exception.RestoDTOException;
+import java.io.Serializable;
 
 /**
  * Dto d'instanciation d'un rayon
  */
-public class RecetteSel {
+public class RecetteSel extends GenericSel{
 
     private Integer id;
     private String libelle;

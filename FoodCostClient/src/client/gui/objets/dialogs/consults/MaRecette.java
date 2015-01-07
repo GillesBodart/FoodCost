@@ -4,15 +4,11 @@
  */
 package client.gui.objets.dialogs.consults;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import client.gui.objets.dialogs.MonJFileChooser;
-import resto.outils.Outils;
-import resto.persistance.dto.RecetteDto;
+import common.dto.RecetteDto;
+import common.tools.CommonTool;
 
 /**
  *
@@ -38,8 +34,8 @@ public class MaRecette extends javax.swing.JDialog {
         this(parent, modal);
         this.rec = rec;
         this.jLabelTitre.setText(rec.getLibelle());
-        this.jLabelPrix.setText("" + Outils.round(rec.getRecPrix(), 4));
-        this.jLabelPrixPP.setText("" + Outils.round(rec.getRecPrix() / rec.getNbPers(), 4));
+        this.jLabelPrix.setText("" + CommonTool.round(rec.getRecPrix(), 4));
+        this.jLabelPrixPP.setText("" + CommonTool.round(rec.getRecPrix() / rec.getNbPers(), 4));
         this.jListeIngredient1.setElmnt(rec.getListeAliments(), false);
         setTitle("Apperçu de la recette : " + rec.getLibelle());
     }
@@ -176,7 +172,7 @@ public class MaRecette extends javax.swing.JDialog {
         try {
             MonJFileChooser jfc = new MonJFileChooser();
             jfc.setVisible(true);
-            Outils.enregistrer(jfc.getUrl(), rec.getLibelle(), rec.getContenu());
+            CommonTool.enregistrer(jfc.getUrl(), rec.getLibelle(), rec.getContenu());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Un problème d'acces au fichier est survenu ... \n" + ex.getMessage(), "Error Massage",

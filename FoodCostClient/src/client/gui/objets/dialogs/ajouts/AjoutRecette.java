@@ -10,10 +10,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
 import client.gui.objets.element.JPanelIngre;
-import resto.outils.Outils;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.ListeAlimentDto;
-import resto.persistance.dto.RecetteDto;
+import common.dto.IngredientDto;
+import common.dto.ListeAlimentDto;
+import common.dto.RecetteDto;
+import common.tools.CommonTool;
 
 /**
  *
@@ -205,7 +205,7 @@ public class AjoutRecette extends javax.swing.JDialog {
 
     private void jTextCouvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextCouvActionPerformed
         try {
-            jLabelPrixPP.setText("" + Outils.round(prixTmp / Integer.parseInt(jTextCouv.getText()), 4));
+            jLabelPrixPP.setText("" + CommonTool.round(prixTmp / Integer.parseInt(jTextCouv.getText()), 4));
         } catch (Exception ex) {
             jTextCouv.setText("1");
             JOptionPane.showMessageDialog(null,
@@ -223,8 +223,8 @@ public class AjoutRecette extends javax.swing.JDialog {
             jListIngr.addElem(lastPanelIngre);
             prixTmp += lastIng.getPrix();
             lstAli.add(lastIng);
-            jLabelPrix.setText("" + Outils.round(prixTmp, 4));
-            jLabelPrixPP.setText("" + Outils.round(prixTmp / Integer.parseInt(jTextCouv.getText()), 4));
+            jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
+            jLabelPrixPP.setText("" + CommonTool.round(prixTmp / Integer.parseInt(jTextCouv.getText()), 4));
             if (!lstAli.isEmpty()) {
                 jButtonSupI.setEnabled(true);
             }
@@ -249,8 +249,8 @@ public class AjoutRecette extends javax.swing.JDialog {
             jListIngr.removeLastPanel();
             prixTmp -= lastIng.getPrix();
             lstAli.remove(lastIng);
-            jLabelPrix.setText("" + Outils.round(prixTmp, 4));
-            jLabelPrixPP.setText("" + Outils.round(prixTmp / Integer.parseInt(jTextCouv.getText()), 4));
+            jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
+            jLabelPrixPP.setText("" + CommonTool.round(prixTmp / Integer.parseInt(jTextCouv.getText()), 4));
             if (lstAli.isEmpty()) {
                 jButtonSupI.setEnabled(false);
             }

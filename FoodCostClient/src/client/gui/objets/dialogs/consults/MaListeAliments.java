@@ -7,10 +7,10 @@ package client.gui.objets.dialogs.consults;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
-import resto.exception.RestoBusinessException;
 import client.gui.objets.dialogs.MonJFileChooser;
-import resto.outils.Outils;
-import resto.persistance.dto.CommandeDto;
+import common.dto.CommandeDto;
+import common.exception.RestoBusinessException;
+import common.tools.CommonTool;
 
 /**
  *
@@ -38,7 +38,7 @@ public class MaListeAliments extends javax.swing.JDialog {
             setTitle("Apperçu de la liste d'aliment nécessaire pour le bon de commande de : " + com.getLibelle());
             this.com = com;
             this.jLabelTitre.setText(com.getLibelle());
-            this.jListeIngredient1.setElmnt(Outils.triFournisseur(AdminFacade.getIngredientsFromCommande(com)));
+            this.jListeIngredient1.setElmnt(CommonTool.triFournisseur(AdminFacade.getIngredientsFromCommande(com)));
         } catch (RestoBusinessException ex) {
             JOptionPane.showMessageDialog(null,
                     "Fais attention a ce que tu fais! tu vas tout casser !!\n" + ex.getMessage(), "Error Massage",
@@ -126,7 +126,7 @@ public class MaListeAliments extends javax.swing.JDialog {
 try {
             MonJFileChooser jfc = new MonJFileChooser();
             jfc.setVisible(true);
-            Outils.enregistrer(jfc.getUrl(), com.getLibelle()+"Liste", com.getContenuListe());
+            CommonTool.enregistrer(jfc.getUrl(), com.getLibelle()+"Liste", com.getContenuListe());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Un problème d'acces au fichier est survenu ... \n" + ex.getMessage(), "Error Massage",

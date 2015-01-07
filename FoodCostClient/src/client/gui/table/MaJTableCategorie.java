@@ -6,8 +6,8 @@ package client.gui.table;
 
 import be.esi.alg2.gui.outils.MaJTable;
 import be.esi.alg2.gui.outils.MaJTableInitialisationException;
+import common.dto.CategorieDto;
 import java.util.Collection;
-import resto.persistance.dto.CategorieDto;
 
 /**
  *

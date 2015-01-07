@@ -4,13 +4,11 @@
  */
 package common.dto;
 
-import be.esi.alg2.dto.Dto;
-
 /**
  *
  * @author Gilles
  */
-public class ModificationCompDto extends Dto<ComposantDto> {
+public class ModificationCompDto extends GenericDto<ComposantDto> {
 
     private int ended;
 

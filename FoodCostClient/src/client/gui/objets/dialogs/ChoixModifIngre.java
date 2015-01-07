@@ -6,10 +6,10 @@ package client.gui.objets.dialogs;
 
 import javax.swing.ImageIcon;
 import client.gui.objets.dialogs.modif.ModifIngredient;
+import common.dto.IngredientDto;
+import common.dto.ListeAlimentDto;
 import javax.swing.JOptionPane;
 import resto.db.ListeAlimentDB;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.ListeAlimentDto;
 
 /**
  *

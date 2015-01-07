@@ -4,15 +4,15 @@
  */
 package client.gui.objets.dialogs.modif;
 
+import common.dto.SousCategorieDto;
+import common.exception.RestoBusinessException;
+import common.exception.RestoDTOException;
+import common.exception.RestoDbException;
 import java.awt.HeadlessException;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
 import resto.db.SousCategorieDB;
-import resto.exception.RestoBusinessException;
-import resto.exception.RestoDTOException;
-import resto.exception.RestoDbException;
-import resto.persistance.dto.SousCategorieDto;
 
 /**
  *

@@ -4,8 +4,8 @@
  */
 package client.gui.objets.dialogs.consults;
 
+import common.dto.AlimentDto;
 import javax.swing.ImageIcon;
-import resto.persistance.dto.AlimentDto;
 
 /**
  *

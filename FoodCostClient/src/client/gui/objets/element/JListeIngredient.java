@@ -4,13 +4,13 @@
  */
 package client.gui.objets.element;
 
+import common.dto.IngredientDto;
+import common.dto.ListeAlimentDto;
+import common.dto.ModificationIngreDto;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collection;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.ListeAlimentDto;
-import resto.persistance.dto.ModificationIngreDto;
 
 /**
  *

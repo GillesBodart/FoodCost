@@ -4,32 +4,24 @@
  */
 package server.db;
 
-import java.util.Collection;
+import common.dto.AlimentDto;
+import common.dto.CategorieDto;
+import common.dto.CommandeDto;
+import common.dto.ComposantDto;
+import common.dto.IngredientDto;
+import common.dto.RecetteDto;
+import common.dto.SousCategorieDto;
+import common.exception.RestoBusinessException;
+import common.exception.RestoDTOException;
+import common.exception.RestoDbException;
+import common.seldto.AlimentSel;
+import common.seldto.CategorieSel;
+import common.seldto.CommandeSel;
+import common.seldto.RecetteSel;
+import common.seldto.SousCategorieSel;
+import java.util.List;
 import java.util.HashMap;
 import java.util.List;
-import resto.db.AlimentDB;
-import resto.db.CategorieDB;
-import resto.db.CommandeDB;
-import resto.db.DBManager;
-import resto.db.ListeAlimentDB;
-import resto.db.ListeRecetteDB;
-import resto.db.RecetteDB;
-import resto.db.SousCategorieDB;
-import resto.exception.RestoBusinessException;
-import resto.exception.RestoDTOException;
-import resto.exception.RestoDbException;
-import resto.persistance.dto.AlimentDto;
-import resto.persistance.dto.CategorieDto;
-import resto.persistance.dto.CommandeDto;
-import resto.persistance.dto.ComposantDto;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.RecetteDto;
-import resto.persistance.dto.SousCategorieDto;
-import resto.seldto.AlimentSel;
-import resto.seldto.CategorieSel;
-import resto.seldto.CommandeSel;
-import resto.seldto.RecetteSel;
-import resto.seldto.SousCategorieSel;
 
 /**
  *
@@ -37,11 +29,11 @@ import resto.seldto.SousCategorieSel;
  */
 public class AdminFacade {
 
-    public static Collection<AlimentDto> getAllAliments() throws RestoBusinessException {
+    public static List<AlimentDto> getAllAliments() throws RestoBusinessException {
         AlimentSel aliSel = new AlimentSel(0);
         try {
             DBManager.startTransaction();
-            Collection<AlimentDto> col = AlimentDB.rechCollection(aliSel);
+            List<AlimentDto> col = AlimentDB.rechCollection(aliSel);
             DBManager.valideTransaction();
             return col;
         } catch (RestoDbException eDB) {
@@ -56,12 +48,12 @@ public class AdminFacade {
         }
     }
 
-    public static Collection<RecetteDto> getAllRecettes() throws RestoBusinessException {
+    public static List<RecetteDto> getAllRecettes() throws RestoBusinessException {
 
         try {
             RecetteSel rctSel = new RecetteSel(0);
             DBManager.startTransaction();
-            Collection<RecetteDto> col = RecetteDB.rechCollection(rctSel);
+            List<RecetteDto> col = RecetteDB.rechCollection(rctSel);
             DBManager.valideTransaction();
             return col;
         } catch (RestoDTOException | RestoDbException eDB) {
@@ -76,12 +68,12 @@ public class AdminFacade {
         }
     }
 
-    public static Collection<CategorieDto> getAllCategories() throws RestoBusinessException {
+    public static List<CategorieDto> getAllCategories() throws RestoBusinessException {
 
         try {
             CategorieSel rctSel = new CategorieSel(0);
             DBManager.startTransaction();
-            Collection<CategorieDto> col = CategorieDB.rechCollection(rctSel);
+            List<CategorieDto> col = CategorieDB.rechCollection(rctSel);
             DBManager.valideTransaction();
             return col;
         } catch (Exception eDB) {
@@ -96,12 +88,12 @@ public class AdminFacade {
         }
     }
 
-    public static Collection<SousCategorieDto> getAllSousCategories() throws RestoBusinessException {
+    public static List<SousCategorieDto> getAllSousCategories() throws RestoBusinessException {
 
         try {
             SousCategorieSel rctSel = new SousCategorieSel(0, "");
             DBManager.startTransaction();
-            Collection<SousCategorieDto> col = SousCategorieDB.rechCollection(rctSel);
+            List<SousCategorieDto> col = SousCategorieDB.rechCollection(rctSel);
             DBManager.valideTransaction();
             return col;
         } catch (Exception eDB) {
@@ -213,10 +205,10 @@ public class AdminFacade {
         }
     }
 
-    public static CategorieDto getCategorieByNom(CategorieDto categorieDto) throws RestoBusinessException {
+    public static CategorieDto getCategorieByName(String name) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            CategorieDto ret = CategorieDB.getCategorie(categorieDto.getNom());
+            CategorieDto ret = CategorieDB.getCategorie(name);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -249,10 +241,10 @@ public class AdminFacade {
         }
     }
 
-    public static SousCategorieDto getSousCategorieByNom(SousCategorieDto sousCat) throws RestoBusinessException {
+    public static SousCategorieDto getSousCategorieByName(String name) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            SousCategorieDto ret = SousCategorieDB.getSousCategorie(sousCat.getNom());
+            SousCategorieDto ret = SousCategorieDB.getSousCategorie(name);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -303,10 +295,10 @@ public class AdminFacade {
         }
     }
 
-    public static AlimentDto getAlimentByNom(AlimentDto ali) throws RestoBusinessException {
+    public static AlimentDto getAlimentByName(String name) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            AlimentDto ret = AlimentDB.getAliment(ali.getLibelle());
+            AlimentDto ret = AlimentDB.getAliment(name);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -339,10 +331,10 @@ public class AdminFacade {
         }
     }
 
-    public static RecetteDto getRecetteByNom(RecetteDto rct) throws RestoBusinessException {
+    public static RecetteDto getRecetteByName(String name) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            RecetteDto ret = RecetteDB.getRecette(rct.getLibelle());
+            RecetteDto ret = RecetteDB.getRecette(name);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -357,10 +349,10 @@ public class AdminFacade {
         }
     }
 
-    public static Collection<AlimentDto> getAliment(AlimentSel ali) throws RestoBusinessException {
+    public static List<AlimentDto> getAliment(AlimentSel ali) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            Collection<AlimentDto> ret = AlimentDB.getAliment(ali);
+            List<AlimentDto> ret = AlimentDB.getAliment(ali);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -375,10 +367,10 @@ public class AdminFacade {
         }
     }
 
-    public static Collection<RecetteDto> getRecette(RecetteSel rct) throws RestoBusinessException {
+    public static List<RecetteDto> getRecette(RecetteSel rct) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            Collection<RecetteDto> ret = RecetteDB.getRecette(rct);
+            List<RecetteDto> ret = RecetteDB.getRecette(rct);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -393,10 +385,10 @@ public class AdminFacade {
         }
     }
 
-    public static Collection<CategorieDto> getCategorie(CategorieSel cat) throws RestoBusinessException {
+    public static List<CategorieDto> getCategorie(CategorieSel cat) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            Collection<CategorieDto> ret = CategorieDB.getCategorie(cat);
+            List<CategorieDto> ret = CategorieDB.getCategorie(cat);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -411,10 +403,10 @@ public class AdminFacade {
         }
     }
 
-    public static Collection<SousCategorieDto> getSousCategorie(SousCategorieSel sousCat) throws RestoBusinessException {
+    public static List<SousCategorieDto> getSousCategorie(SousCategorieSel sousCat) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            Collection<SousCategorieDto> ret = SousCategorieDB.getSousCategorie(sousCat);
+            List<SousCategorieDto> ret = SousCategorieDB.getSousCategorie(sousCat);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {
@@ -429,10 +421,10 @@ public class AdminFacade {
         }
     }
 
-    public static Collection<CommandeDto> getCommande(CommandeSel com) throws RestoBusinessException {
+    public static List<CommandeDto> getCommande(CommandeSel com) throws RestoBusinessException {
         try {
             DBManager.startTransaction();
-            Collection<CommandeDto> ret = CommandeDB.getCommande(com);
+            List<CommandeDto> ret = CommandeDB.getCommande(com);
             DBManager.valideTransaction();
             return ret;
         } catch (RestoDbException eDB) {

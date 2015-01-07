@@ -9,12 +9,12 @@ import client.gui.objets.dialogs.ajouts.AjoutIngredient;
 import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
 import resto.db.ListeAlimentDB;
-import resto.exception.RestoDbException;
 import client.gui.objets.element.JBoutIngre;
-import resto.outils.Outils;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.ModificationIngreDto;
-import resto.persistance.dto.RecetteDto;
+import common.dto.IngredientDto;
+import common.dto.ModificationIngreDto;
+import common.dto.RecetteDto;
+import common.exception.RestoDbException;
+import common.tools.CommonTool;
 
 /**
  *
@@ -42,8 +42,8 @@ setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImag
         this.jTextFieldTitre.setText(rec.getLibelle());
         this.jTextFieldNbPers.setText("" + rec.getNbPers());
         prixTmp = rec.getRecPrix();
-        this.jLabelPrix.setText("" + Outils.round(prixTmp, 4));
-        this.jLabelPrixPP.setText("" + Outils.round(prixTmp / rec.getNbPers(), 4));
+        this.jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
+        this.jLabelPrixPP.setText("" + CommonTool.round(prixTmp / rec.getNbPers(), 4));
         this.jListeIngredient1.setElmnt(rec.getListeAliments(), true);
         setLocationRelativeTo(null);
         setTitle("Modification de la recette : " + rec.getLibelle());
@@ -259,8 +259,8 @@ setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImag
                 lastPanelIngre = new JBoutIngre(lastIng, rec.getListeAliments());
                 jListeIngredient1.addElem(lastPanelIngre);
                 prixTmp += lastIng.getPrix();
-                jLabelPrix.setText("" + Outils.round(prixTmp, 4));
-                jLabelPrixPP.setText("" + Outils.round(prixTmp / Integer.parseInt(jTextFieldNbPers.getText()), 4));
+                jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
+                jLabelPrixPP.setText("" + CommonTool.round(prixTmp / Integer.parseInt(jTextFieldNbPers.getText()), 4));
                 ListeAlimentDB.insertIngrDb(rec.getListeAliments(), lastIng);
             } catch (RestoDbException ex) {
                 JOptionPane.showMessageDialog(null,
@@ -333,8 +333,8 @@ setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImag
             for (IngredientDto ing : jListeIngredient1.getIngr()) {
                 prixTmp += ing.getPrix();
             }
-            this.jLabelPrix.setText("" + Outils.round(prixTmp, 4));
-            this.jLabelPrixPP.setText("" + Outils.round(prixTmp / Integer.parseInt(jTextFieldNbPers.getText()), 4));
+            this.jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
+            this.jLabelPrixPP.setText("" + CommonTool.round(prixTmp / Integer.parseInt(jTextFieldNbPers.getText()), 4));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Tu vas tout casser !!\n" + ex.getMessage(), "Error Massage",

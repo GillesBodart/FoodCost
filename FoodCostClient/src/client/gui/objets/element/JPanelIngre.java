@@ -4,7 +4,7 @@
  */
 package client.gui.objets.element;
 
-import resto.persistance.dto.IngredientDto;
+import common.dto.IngredientDto;
 
 /**
  *

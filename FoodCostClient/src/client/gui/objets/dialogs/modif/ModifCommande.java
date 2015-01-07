@@ -10,12 +10,12 @@ import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
 import resto.db.ListeRecetteDB;
 import resto.db.CommandeDB;
-import resto.exception.RestoDbException;
 import client.gui.objets.element.JBoutComp;
-import resto.outils.Outils;
-import resto.persistance.dto.ComposantDto;
-import resto.persistance.dto.ModificationCompDto;
-import resto.persistance.dto.CommandeDto;
+import common.dto.CommandeDto;
+import common.dto.ComposantDto;
+import common.dto.ModificationCompDto;
+import common.exception.RestoDbException;
+import common.tools.CommonTool;
 
 /**
  *
@@ -43,8 +43,8 @@ public class ModifCommande extends javax.swing.JDialog {
         this.com = com;
         this.jTextFieldTitre.setText(com.getLibelle());
         prixTmp = com.getRecPrix();
-        this.jLabelPrix.setText("" + Outils.round(prixTmp, 4));
-        this.jLabelPrixPP.setText("" + Outils.round(prixTmp / com.getNbPers(), 4));
+        this.jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
+        this.jLabelPrixPP.setText("" + CommonTool.round(prixTmp / com.getNbPers(), 4));
         this.jListeRecette1.setElmnt(com.getListeRecettes(), true);
         setLocationRelativeTo(null);
         setTitle("Modification de la commande de : " + com.getLibelle());
@@ -241,8 +241,8 @@ public class ModifCommande extends javax.swing.JDialog {
                 lastPanelIngre = new JBoutComp(lastIng, com.getListeRecettes());
                 jListeRecette1.addElem(lastPanelIngre);
                 prixTmp += lastIng.getPrix();
-                jLabelPrix.setText("" + Outils.round(prixTmp, 4));
-                jLabelPrixPP.setText("" + Outils.round(prixTmp / com.getNbPers(), 4));
+                jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
+                jLabelPrixPP.setText("" + CommonTool.round(prixTmp / com.getNbPers(), 4));
                 ListeRecetteDB.insertCompoDb(com.getListeRecettes(), lastIng);
             } catch (RestoDbException ex) {
                 JOptionPane.showMessageDialog(null,
@@ -313,8 +313,8 @@ public class ModifCommande extends javax.swing.JDialog {
             for (ComposantDto cmp : jListeRecette1.getComp()) {
                 prixTmp += cmp.getPrix();
             }
-            this.jLabelPrix.setText("" + Outils.round(prixTmp, 4));
-            this.jLabelPrixPP.setText("" + Outils.round(prixTmp / jListeRecette1.getNbPers(), 4));
+            this.jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
+            this.jLabelPrixPP.setText("" + CommonTool.round(prixTmp / jListeRecette1.getNbPers(), 4));
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Tu vas tout casser !!\n" + ex.getMessage(), "Error Massage",

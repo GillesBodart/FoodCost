@@ -4,14 +4,14 @@
  */
 package client.gui.objets.dialogs.modif;
 
+import common.dto.AlimentDto;
+import common.exception.RestoBusinessException;
+import common.tools.Unit;
 import java.awt.HeadlessException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
-import resto.exception.RestoBusinessException;
-import resto.outils.Unite;
-import resto.persistance.dto.AlimentDto;
 
 /**
  *
@@ -115,7 +115,7 @@ public class ModifAliment extends javax.swing.JDialog {
         jLabel6.setText("Unité :");
 
         jComboBox1.setFont(new java.awt.Font("Traditional Arabic", 0, 24)); // NOI18N
-        jComboBox1.setModel(new DefaultComboBoxModel(Unite.values()));
+        jComboBox1.setModel(new DefaultComboBoxModel(Unit.values()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,7 +197,7 @@ public class ModifAliment extends javax.swing.JDialog {
             ali.setCategorie(selectSousCategorie1.getObjectSelected());
             ali.setFournisseur(jTextFieldFou.getText());
             ali.setAliPrix(Double.parseDouble(jTextFieldPrix.getText()));
-            ali.setUnit((Unite) jComboBox1.getSelectedItem());
+            ali.setUnit((Unit) jComboBox1.getSelectedItem());
             int reply = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment modifier cet aliment ?", "Veuillez confirmer", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 AdminFacade.modifAliment(ali);

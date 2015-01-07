@@ -4,7 +4,6 @@
  */
 package common.dto;
 
-import be.esi.alg2.dto.Dto;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.List;
 /**
  * Dto d'instanciation d'une catégorie
  */
-public class ListeRecetteDto extends Dto<Integer> {
+public class ListeRecetteDto extends GenericDto<Integer> {
 
     private Collection<ComposantDto> composants;
     private Integer numLigne;

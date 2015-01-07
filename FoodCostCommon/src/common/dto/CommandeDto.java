@@ -4,14 +4,13 @@
  */
 package common.dto;
 
-import be.esi.alg2.dto.Dto;
 import common.exception.RestoDTOException;
 import java.util.ArrayList;
 
 /**
  * Dto d'instanciation d'un rayon
  */
-public class CommandeDto extends Dto<Integer> {
+public class CommandeDto extends GenericDto<Integer>{
 
     private String libelle;
     private Double recPrix;

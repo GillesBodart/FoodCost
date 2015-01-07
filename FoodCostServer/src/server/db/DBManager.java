@@ -3,12 +3,13 @@
  */
 package server.db;
 
+import common.exception.RestoDbException;
+import common.tools.CommonTool;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import resto.exception.RestoDbException;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,8 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import org.apache.derby.tools.ij;
-import resto.application.FoodCost;
-import resto.outils.Outils;
+
 
 /**
  * Offre les outils de connexion et de gestion de transaction.
@@ -135,7 +135,7 @@ public class DBManager {
         }
         String url = "jdbc:derby:" + dbName + ";create=true";
         Connection con = null;
-        URL scriptURL = FoodCost.class.getResource(DB_SCRIPT);
+        URL scriptURL = DBManager.class.getResource(DB_SCRIPT);
 
         try {
 
@@ -200,7 +200,7 @@ public class DBManager {
         try {
             prop.load(new FileInputStream(CONFIG_FILE));
         } catch (Exception ex) {
-            Logger.getLogger(Outils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CommonTool.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -209,7 +209,7 @@ public class DBManager {
         try {
             prop.store(new FileOutputStream(CONFIG_FILE), "");
         } catch (Exception ex) {
-            Logger.getLogger(Outils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CommonTool.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -241,7 +241,7 @@ public class DBManager {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(Outils.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CommonTool.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

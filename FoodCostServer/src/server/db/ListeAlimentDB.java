@@ -4,14 +4,14 @@
  */
 package server.db;
 
-import resto.exception.RestoDbException;
+import common.dto.IngredientDto;
+import common.dto.ListeAlimentDto;
+import common.exception.RestoDbException;
+import common.seldto.ListeAlimentSel;
+import common.tools.CommonTool;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import resto.outils.Outils;
-import resto.persistance.dto.IngredientDto;
-import resto.persistance.dto.ListeAlimentDto;
-import resto.seldto.ListeAlimentSel;
 
 /**
  * Classe d'accès au gestionnaire de persistance pour les Liste d'Aliments
@@ -55,7 +55,7 @@ public class ListeAlimentDB {
             java.sql.ResultSet rs = stmt.executeQuery();
             //java.sql.ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                al.add(new IngredientDto(AlimentDB.getAliment(rs.getInt("lstAli")), rs.getInt("lstAliQte"), Outils.getQte(rs.getString("lstAliQteUnite"))));
+                al.add(new IngredientDto(AlimentDB.getAliment(rs.getInt("lstAli")), rs.getInt("lstAliQte"), CommonTool.getQte(rs.getString("lstAliQteUnite"))));
             }
         } catch (java.sql.SQLException eSQL) {
             throw new RestoDbException("Instanciation de Liste d'Aliments impossible:\rSQLException: " + eSQL.getMessage());
@@ -234,7 +234,7 @@ public class ListeAlimentDB {
             java.sql.ResultSet rs = stmt.executeQuery();
             //java.sql.ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                IngredientDto ing = new IngredientDto(AlimentDB.getAliment(rs.getInt("lstAli")), rs.getInt("lstAliQte"), Outils.getQte(rs.getString("lstAliQteUnite")));
+                IngredientDto ing = new IngredientDto(AlimentDB.getAliment(rs.getInt("lstAli")), rs.getInt("lstAliQte"), CommonTool.getQte(rs.getString("lstAliQteUnite")));
                 sum += ing.getPrix();
             }
         } catch (RestoDbException | SQLException eSQL) {

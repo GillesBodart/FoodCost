@@ -4,11 +4,13 @@
  */
 package common.tools;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Gilles
  */
-public enum Unite {
+public enum Unit implements Serializable{
 
     KG("Kg") {
         @Override
@@ -45,10 +47,10 @@ public enum Unite {
     };
     private String nom;
 
-    private Unite() {
+    private Unit() {
     }
 
-    private Unite(String nom) {
+    private Unit(String nom) {
         this.nom = nom;
     }
 

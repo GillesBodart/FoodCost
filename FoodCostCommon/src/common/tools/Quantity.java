@@ -4,11 +4,13 @@
  */
 package common.tools;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Gilles
  */
-public enum Quantite {
+public enum Quantity implements Serializable{
 
     G("g") {
         @Override
@@ -81,10 +83,10 @@ public enum Quantite {
     };
     private String nom;
 
-    private Quantite() {
+    private Quantity() {
     }
 
-    private Quantite(String nom) {
+    private Quantity(String nom) {
         this.nom = nom;
     }
 
@@ -95,20 +97,20 @@ public enum Quantite {
         return nom;
     }
 
-    public static Quantite[] values(Unite unit) {
-        Quantite[] vals = null;
+    public static Quantity[] values(Unit unit) {
+        Quantity[] vals = null;
         switch (unit) {
             case KG:
-                vals = new Quantite[]{Quantite.G,Quantite.KG, Quantite.CS, Quantite.CC};
+                vals = new Quantity[]{Quantity.G,Quantity.KG, Quantity.CS, Quantity.CC};
                 break;
             case L:
-                vals = new Quantite[]{Quantite.ML, Quantite.BOUT1, Quantite.BOUT2, Quantite.BOUT3, Quantite.BOUT4, Quantite.CS, Quantite.CC};
+                vals = new Quantity[]{Quantity.ML, Quantity.BOUT1, Quantity.BOUT2, Quantity.BOUT3, Quantity.BOUT4, Quantity.CS, Quantity.CC};
                 break;
             case PCE:
-                vals = new Quantite[]{Quantite.PCE};
+                vals = new Quantity[]{Quantity.PCE};
                 break;
             case H:
-                vals = new Quantite[]{Quantite.MIN};
+                vals = new Quantity[]{Quantity.MIN};
                 break;
         }
         return vals;

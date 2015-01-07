@@ -9,11 +9,11 @@ import be.esi.alg2.gui.outils.MaJTableInitialisationException;
 import java.util.Collection;
 import javax.swing.ImageIcon;
 import resto.business.AdminFacade;
-import resto.exception.RestoBusinessException;
 import client.gui.criteres.JPCritSelCommande;
 import client.gui.table.MaJTableCommande;
-import resto.persistance.dto.CommandeDto;
-import resto.seldto.CommandeSel;
+import common.dto.CommandeDto;
+import common.exception.RestoBusinessException;
+import common.seldto.CommandeSel;
 
 /**
  *

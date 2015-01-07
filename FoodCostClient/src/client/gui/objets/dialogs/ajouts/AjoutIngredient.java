@@ -4,11 +4,11 @@
  */
 package client.gui.objets.dialogs.ajouts;
 
+import common.dto.IngredientDto;
+import common.tools.Quantity;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import resto.outils.Quantite;
-import resto.persistance.dto.IngredientDto;
 
 /**
  *
@@ -77,7 +77,7 @@ public class AjoutIngredient extends javax.swing.JDialog {
 
         jComboBox1.setFont(new java.awt.Font("Traditional Arabic", 0, 24)); // NOI18N
         if (selectAliment1.getObjectSelected() != null){
-            jComboBox1.setModel(new DefaultComboBoxModel(Quantite.values(selectAliment1.getObjectSelected().getUnit())));
+            jComboBox1.setModel(new DefaultComboBoxModel(Quantity.values(selectAliment1.getObjectSelected().getUnit())));
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -128,7 +128,7 @@ public class AjoutIngredient extends javax.swing.JDialog {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         try {
-            ingre = new IngredientDto(selectAliment1.getObjectSelected(), Integer.parseInt(jTextQuan.getText()), (Quantite) jComboBox1.getSelectedItem());
+            ingre = new IngredientDto(selectAliment1.getObjectSelected(), Integer.parseInt(jTextQuan.getText()), (Quantity) jComboBox1.getSelectedItem());
             this.exit = 0;
             this.dispose();
         } catch (Exception ex) {
@@ -141,7 +141,7 @@ public class AjoutIngredient extends javax.swing.JDialog {
 
     private void selectAliment1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_selectAliment1PropertyChange
         if (selectAliment1.getObjectSelected() != null) {
-            jComboBox1.setModel(new DefaultComboBoxModel(Quantite.values(selectAliment1.getObjectSelected().getUnit())));
+            jComboBox1.setModel(new DefaultComboBoxModel(Quantity.values(selectAliment1.getObjectSelected().getUnit())));
         }
     }//GEN-LAST:event_selectAliment1PropertyChange
 

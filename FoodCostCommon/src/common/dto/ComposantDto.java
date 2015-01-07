@@ -4,13 +4,12 @@
  */
 package common.dto;
 
-import be.esi.alg2.dto.Dto;
 import common.exception.RestoDTOException;
 
 /**
  * Dto d'instanciation d'une catégorie
  */
-public class ComposantDto extends Dto<RecetteDto> {
+public class ComposantDto extends GenericDto<RecetteDto> {
 
     private Integer qte;
 

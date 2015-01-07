@@ -4,15 +4,13 @@
  */
 package server.db;
 
-import resto.persistance.dto.CategorieDto;
-import resto.exception.RestoDbException;
-import resto.seldto.CategorieSel;
+import common.dto.SousCategorieDto;
+import common.exception.RestoDbException;
+import common.seldto.SousCategorieSel;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import resto.persistance.dto.SousCategorieDto;
-import resto.seldto.SousCategorieSel;
 
 /**
  * Classe d'accès au gestionnaire de persistance pour les Catégories

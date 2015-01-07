@@ -10,10 +10,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import resto.business.AdminFacade;
 import client.gui.objets.element.JPanelComp;
-import resto.outils.Outils;
-import resto.persistance.dto.CommandeDto;
-import resto.persistance.dto.ComposantDto;
-import resto.persistance.dto.ListeRecetteDto;
+import common.dto.CommandeDto;
+import common.dto.ComposantDto;
+import common.dto.ListeRecetteDto;
+import common.tools.CommonTool;
 
 /**
  *
@@ -164,7 +164,7 @@ public class AjoutCommande extends javax.swing.JDialog {
             jListeRecette.addElem(lastPanelComp);
             prixTmp += lastComp.getPrix();
             lstComp.add(lastComp);
-            jLabelPrix.setText("" + Outils.round(prixTmp, 4));
+            jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
             if (!lstComp.isEmpty()) {
                 jButtonSupI.setEnabled(true);
             }
@@ -189,7 +189,7 @@ public class AjoutCommande extends javax.swing.JDialog {
             jListeRecette.removeLastPanel();
             prixTmp -= lastComp.getPrix();
             lstComp.remove(lastComp);
-            jLabelPrix.setText("" + Outils.round(prixTmp, 4));
+            jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
             if (lstComp.isEmpty()) {
                 jButtonSupI.setEnabled(false);
             }

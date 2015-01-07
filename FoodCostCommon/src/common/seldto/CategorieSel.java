@@ -5,11 +5,12 @@
 package common.seldto;
 
 import common.exception.RestoDTOException;
+import java.io.Serializable;
 
 /**
  * Dto d'instanciation d'une catégorie
  */
-public class CategorieSel {
+public class CategorieSel extends GenericSel {
 
     private Integer id;
     private String nom;
