@@ -11,7 +11,7 @@ import common.exception.RestoDbException;
  */
 public class SequenceDB {
 
-    static final String ALIMENT = "Aliment", SOUSCATEGORIE = "SousCategorie", RECETTE = "Recette", COMMANDE = "Commande", CATEGORIE = "Categorie", NUMLIGNE = "NumLigne", LISTEINGREDIENT = "ListeIngredient", LISTERECETTE = "ListeRecette";
+    static final String ALIMENT = "Aliment", SOUSCATEGORIE = "SousCategorie", RECETTE = "Recette", COMMANDE = "Commande", CATEGORIE = "Categorie", NUMLIGNE = "NumLigne", LISTEINGREDIENT = "ListeIngredient", LISTERECETTE = "ListeRecette",COMPTE = "Compte";
 
     static synchronized int getNumSuivant(String sequence) throws RestoDbException {
         try {

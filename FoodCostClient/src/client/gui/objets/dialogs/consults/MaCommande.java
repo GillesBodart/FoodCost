@@ -4,9 +4,11 @@
  */
 package client.gui.objets.dialogs.consults;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import client.gui.objets.dialogs.MonJFileChooser;
+import client.implementation.FoodClientImpl;
+import client.tools.ClientTool;
+import client.tools.GenericDialog;
 import common.dto.CommandeDto;
 import common.tools.CommonTool;
 
@@ -14,27 +16,17 @@ import common.tools.CommonTool;
  *
  * @author Gilles
  */
-public class MaCommande extends javax.swing.JDialog {
+public class MaCommande extends GenericDialog {
 
-    private CommandeDto com;
+    private final CommandeDto com;
 
-    /**
-     * Creates new form MaCommande
-     */
-    public MaCommande(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public MaCommande(java.awt.Frame parent, boolean modal,FoodClientImpl modele, CommandeDto com) {
+        super(parent, modal,modele,"Apperçu de la commande du client : " + com.getLibelle());
         initComponents();
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-    }
-
-    public MaCommande(java.awt.Frame parent, boolean modal, CommandeDto com) {
-        this(parent, modal);
         this.com = com;
         this.jLabelTitre.setText(com.getLibelle());
         this.jLabelPrix.setText("" + CommonTool.round(com.getRecPrix(), 4));
         this.jListeRecette1.setElmnt(com.getListeRecettes(), false);
-        setLocationRelativeTo(null);
-        setTitle("Apperçu de la commande du client : " + com.getLibelle());
     }
 
     /**
@@ -112,14 +104,14 @@ public class MaCommande extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        new MaListeAliments(null, true, com).setVisible(true);
+        new MaListeAliments(null, true,modele, com).setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
        try {
             MonJFileChooser jfc = new MonJFileChooser();
             jfc.setVisible(true);
-            CommonTool.enregistrer(jfc.getUrl(), com.getLibelle(), com.getContenu());
+            ClientTool.enregistrer(jfc.getUrl(), com.getLibelle(), com.getContenu());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Un problème d'acces au fichier est survenu ... \n" + ex.getMessage(), "Error Massage",
@@ -127,47 +119,6 @@ public class MaCommande extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaCommande.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaCommande.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaCommande.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MaCommande.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MaCommande dialog = new MaCommande(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

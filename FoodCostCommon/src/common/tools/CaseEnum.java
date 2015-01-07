@@ -9,7 +9,7 @@ package common.tools;
  *
  * @author Gilles
  */
-public enum Category {
+public enum CaseEnum {
     ACCOUNT,
     ALIMENT,
     CATEGORIE,
@@ -18,4 +18,6 @@ public enum Category {
     LISTE_RECETTE,
     RECETTE,
     SOUS_CATEGORIE,
+    ELEM_SOUS_CATEGORIE,
+    CONTENTENU_LISTE_COMMANDE
 }

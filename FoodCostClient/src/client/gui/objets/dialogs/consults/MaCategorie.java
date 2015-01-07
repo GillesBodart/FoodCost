@@ -4,44 +4,34 @@
  */
 package client.gui.objets.dialogs.consults;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.CategorieDto;
-import common.exception.RestoBusinessException;
-import javax.swing.ImageIcon;
+import common.tools.CaseEnum;
 import javax.swing.JOptionPane;
-import resto.business.AdminFacade;
 
 /**
  *
  * @author Gilles
  */
-public class MaCategorie extends javax.swing.JDialog {
+public class MaCategorie extends GenericDialog {
 
     /**
      * Creates new form MaCategorie
      */
-    public MaCategorie(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public MaCategorie(java.awt.Frame parent, boolean modal, FoodClientImpl modele, CategorieDto cat) {
+        super(parent, modal, modele, "Apperçu de la catégorie : " + cat.getNom());
         initComponents();
-        setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-    }
-
-    /**
-     * Creates new form MaCategorie
-     */
-    public MaCategorie(java.awt.Frame parent, boolean modal, CategorieDto cat) {
-        this(parent, modal);
         try {
+
             this.jLabelNom.setText(cat.getNom());
-            this.jLabelELEM.setText(AdminFacade.getNbElem(cat) + "");
-            this.jLabelSC.setText(AdminFacade.getNbSC(cat) + "");
-            setTitle("Apperçu de la catégorie : " + cat.getNom());
-        } catch (RestoBusinessException ex) {
+            this.jLabelELEM.setText(modele.getNbElem(CaseEnum.CATEGORIE, cat) + "");
+            this.jLabelSC.setText(modele.getNbElem(CaseEnum.ELEM_SOUS_CATEGORIE,cat) + "");
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null,
-                    "Fais un peu attention tu vas tout bousiller " + ex.getMessage(), "Error Massage",
+                    "Un problème d'acces au fichier est survenu ... \n" + e.getMessage(), "Error Massage",
                     JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     /**
@@ -136,47 +126,6 @@ public class MaCategorie extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MaCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MaCategorie dialog = new MaCategorie(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

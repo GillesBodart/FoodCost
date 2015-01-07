@@ -4,42 +4,32 @@
  */
 package client.gui.objets.dialogs.consults;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import resto.business.AdminFacade;
 import client.gui.objets.dialogs.MonJFileChooser;
+import client.implementation.FoodClientImpl;
+import client.tools.ClientTool;
+import client.tools.GenericDialog;
 import common.dto.CommandeDto;
-import common.exception.RestoBusinessException;
+import common.tools.CaseEnum;
 import common.tools.CommonTool;
+import java.util.ArrayList;
 
 /**
  *
  * @author Gilles
  */
-public class MaListeAliments extends javax.swing.JDialog {
-
+public class MaListeAliments extends GenericDialog {
+    
     private CommandeDto com;
-
-    /**
-     * Creates new form MaListeAliments
-     */
-    public MaListeAliments(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    
+    public MaListeAliments(java.awt.Frame parent, boolean modal, FoodClientImpl modele, CommandeDto com) {
+        super(parent, modal, modele, "Apperçu de la liste d'aliment nécessaire pour le bon de commande de : " + com.getLibelle());
         initComponents();
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-        setLocationRelativeTo(null);
-
-
-    }
-
-    public MaListeAliments(java.awt.Frame parent, boolean modal, CommandeDto com) {
-        this(parent, modal);
         try {
-            setTitle("Apperçu de la liste d'aliment nécessaire pour le bon de commande de : " + com.getLibelle());
             this.com = com;
             this.jLabelTitre.setText(com.getLibelle());
-            this.jListeIngredient1.setElmnt(CommonTool.triFournisseur(AdminFacade.getIngredientsFromCommande(com)));
-        } catch (RestoBusinessException ex) {
+            this.jListeIngredient1.setElmnt(CommonTool.triFournisseur(modele.getIngredientsFromCommande(com)));
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Fais attention a ce que tu fais! tu vas tout casser !!\n" + ex.getMessage(), "Error Massage",
                     JOptionPane.ERROR_MESSAGE);
@@ -123,10 +113,11 @@ public class MaListeAliments extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-try {
+        try {
             MonJFileChooser jfc = new MonJFileChooser();
             jfc.setVisible(true);
-            CommonTool.enregistrer(jfc.getUrl(), com.getLibelle()+"Liste", com.getContenuListe());
+            ArrayList<String> contenu = new ArrayList<>(modele.get(CaseEnum.CONTENTENU_LISTE_COMMANDE, com));
+            ClientTool.enregistrer(jfc.getUrl(), com.getLibelle() + "Liste", contenu);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Un problème d'acces au fichier est survenu ... \n" + ex.getMessage(), "Error Massage",
@@ -134,47 +125,6 @@ try {
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaListeAliments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaListeAliments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaListeAliments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MaListeAliments.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MaListeAliments dialog = new MaListeAliments(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

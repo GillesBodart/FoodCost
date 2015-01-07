@@ -36,20 +36,30 @@ import client.gui.table.MaJTableCategorie;
 import client.gui.table.MaJTableCommande;
 import client.gui.table.MaJTableRecette;
 import client.gui.table.MaJTableSousCategorie;
+import client.implementation.FoodClientImpl;
+import common.interfaces.FoodModele;
+import java.rmi.Naming;
 
 /**
  *
  * @author Gilles
  */
-public class MainFrame extends javax.swing.JInternalFrame {
+public class MainFrame extends javax.swing.JFrame {
+
+    private FoodClientImpl modele;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
-        // Outils.loadConfigFile(Outils.CONFIG_FILE);
-        initComponents();
 
+        try {
+            FoodModele fm = (FoodModele) Naming.lookup("rmi://gillesbodart.ddns.net:1099/FoodModele1");
+            modele = new FoodClientImpl(fm);
+            initComponents();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     /**

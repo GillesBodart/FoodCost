@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author Gilles
  */
-public class ClientTools {
+public class ClientTool {
     
     public static void enregistrer(String url, String titre, ArrayList<String> cont) {
         try {

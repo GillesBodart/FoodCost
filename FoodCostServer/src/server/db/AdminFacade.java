@@ -9,6 +9,8 @@ import common.dto.CategorieDto;
 import common.dto.CommandeDto;
 import common.dto.ComposantDto;
 import common.dto.IngredientDto;
+import common.dto.ListeAlimentDto;
+import common.dto.ListeRecetteDto;
 import common.dto.RecetteDto;
 import common.dto.SousCategorieDto;
 import common.exception.RestoBusinessException;
@@ -19,6 +21,8 @@ import common.seldto.CategorieSel;
 import common.seldto.CommandeSel;
 import common.seldto.RecetteSel;
 import common.seldto.SousCategorieSel;
+import common.tools.CommonTool;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -652,6 +656,66 @@ public class AdminFacade {
             RecetteDB.updateDb(rec);
             DBManager.valideTransaction();
         } catch (RestoDbException eDB) {
+            String msg = eDB.getMessage();
+            try {
+                DBManager.annuleTransaction();
+            } catch (RestoDbException ex) {
+                msg = ex.getMessage() + "\n" + msg;
+            } finally {
+                throw new RestoBusinessException("Ajout de catégorie impossible! \n" + msg);
+            }
+        }
+    }
+//
+    public static int supprimeIngre(ListeAlimentDto lst, IngredientDto ing) throws RestoBusinessException {
+       try {
+            DBManager.startTransaction();
+            int ret = ListeAlimentDB.deleteIngreDb(lst, ing);
+            DBManager.valideTransaction();
+            return ret;
+        } catch (RestoDbException eDB) {
+            String msg = eDB.getMessage();
+            try {
+                DBManager.annuleTransaction();
+            } catch (RestoDbException ex) {
+                msg = ex.getMessage() + "\n" + msg;
+            } finally {
+                throw new RestoBusinessException("Ajout de catégorie impossible! \n" + msg);
+            }
+        }
+    }
+
+    public static int supprimeCompo(ListeRecetteDto lst, ComposantDto ing) throws RestoBusinessException {
+        try {
+            DBManager.startTransaction();
+            int ret = ListeRecetteDB.deleteCompoDb(lst, ing);
+            DBManager.valideTransaction();
+            return ret;
+        } catch (RestoDbException eDB) {
+            String msg = eDB.getMessage();
+            try {
+                DBManager.annuleTransaction();
+            } catch (RestoDbException ex) {
+                msg = ex.getMessage() + "\n" + msg;
+            } finally {
+                throw new RestoBusinessException("Ajout de catégorie impossible! \n" + msg);
+            }
+        }
+    }
+    
+    public static List<String> getContenuListe(CommandeDto com) throws RestoBusinessException {
+        try {
+            List<String> str = new ArrayList();
+
+            str.add("Liste d'ingrédients du bon de commande pour : " + com.getLibelle());
+            str.add("Liste d'ingrédients : ");
+            for (IngredientDto ing : CommonTool.triFournisseur(getIngredientsFromCommande(com))) {
+                str.add("( "+ing.getId().getFournisseur()+" ) "+ing.getQte().toString() + ing.getUnit() + " de " + ing.getId().getLibelle());
+            }
+            str.add(" ");
+            str.add("Prix total de la commande " + com.getRecPrix() + " €");
+            return str;
+        } catch (Exception eDB) {
             String msg = eDB.getMessage();
             try {
                 DBManager.annuleTransaction();

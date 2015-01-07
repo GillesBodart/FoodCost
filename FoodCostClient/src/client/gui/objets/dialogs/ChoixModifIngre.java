@@ -6,36 +6,28 @@ package client.gui.objets.dialogs;
 
 import javax.swing.ImageIcon;
 import client.gui.objets.dialogs.modif.ModifIngredient;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.IngredientDto;
 import common.dto.ListeAlimentDto;
 import javax.swing.JOptionPane;
-import resto.db.ListeAlimentDB;
 
 /**
  *
  * @author Gilles
  */
-public class ChoixModifIngre extends javax.swing.JDialog {
+public class ChoixModifIngre extends GenericDialog{
 
     private IngredientDto ing;
     private ListeAlimentDto lst;
     private boolean isModif;
 
-    /**
-     * Creates new form ChoixModifIngre
-     */
-    public ChoixModifIngre(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public ChoixModifIngre(java.awt.Frame parent, boolean modal,FoodClientImpl modele, IngredientDto ing, ListeAlimentDto lst) {
+        super(parent, modal,modele,"Option de modification");
         initComponents();
-        setLocationRelativeTo(null);
-        setTitle("Option de modification");
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-    }
-
-    public ChoixModifIngre(java.awt.Frame parent, boolean modal, IngredientDto ing, ListeAlimentDto lst) {
-        this(parent, modal);
         this.ing = ing;
         this.lst = lst;
+        this.modele=modele;
     }
 
     /**
@@ -103,7 +95,7 @@ public class ChoixModifIngre extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         isModif = false;
         try {
-            ListeAlimentDB.deleteIngreDb(lst, ing);
+            modele.delete(lst, ing);
             dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
@@ -111,49 +103,6 @@ public class ChoixModifIngre extends javax.swing.JDialog {
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChoixModifIngre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChoixModifIngre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChoixModifIngre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChoixModifIngre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ChoixModifIngre dialog = new ChoixModifIngre(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     public IngredientDto getIngre() {
         return ing;
     }

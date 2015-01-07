@@ -9,10 +9,12 @@ import common.dto.CommandeDto;
 import common.dto.ComposantDto;
 import common.dto.GenericDto;
 import common.dto.IngredientDto;
+import common.dto.ListeAlimentDto;
+import common.dto.ListeRecetteDto;
 import common.dto.RecetteDto;
 import common.interfaces.FoodModele;
 import common.seldto.GenericSel;
-import common.tools.Category;
+import common.tools.CaseEnum;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -35,37 +37,37 @@ public class FoodClientImpl implements FoodModele{
     }
     
     @Override
-    public List getAll(Category cat) throws RemoteException {
+    public List getAll(CaseEnum cat) throws RemoteException {
         return foodRemote.getAll(cat);
     }
 
     @Override
-    public GenericDto getByName(Category cat, String name) throws RemoteException {
+    public GenericDto getByName(CaseEnum cat, String name) throws RemoteException {
         return foodRemote.getByName(cat, name);
     }
 
     @Override
-    public GenericDto getById(Category cat, GenericDto id) throws RemoteException {
+    public GenericDto getById(CaseEnum cat, GenericDto id) throws RemoteException {
         return foodRemote.getById(cat, id);
     }
 
     @Override
-    public List getBySel(Category cat, GenericSel sel) throws RemoteException {
+    public List getBySel(CaseEnum cat, GenericSel sel) throws RemoteException {
         return foodRemote.getBySel(cat, sel);
     }
 
     @Override
-    public int add(Category cat, GenericDto rec) throws RemoteException {
+    public int add(CaseEnum cat, GenericDto rec) throws RemoteException {
         return foodRemote.add(cat, rec);
     }
 
     @Override
-    public int getNbElem(Category cat, GenericDto rec) throws RemoteException {
+    public int getNbElem(CaseEnum cat, GenericDto rec) throws RemoteException {
         return foodRemote.getNbElem(cat, rec);
     }
 
     @Override
-    public int update(Category cat, GenericDto rec1, GenericDto rec2) throws RemoteException {
+    public int update(CaseEnum cat, GenericDto rec1, GenericDto rec2) throws RemoteException {
         return foodRemote.update(cat, rec1, rec2);
     }
 
@@ -82,6 +84,21 @@ public class FoodClientImpl implements FoodModele{
     @Override
     public List<IngredientDto> getIngredientsFromCommande(CommandeDto com) throws RemoteException {
         return foodRemote.getIngredientsFromCommande(com);
+    }
+
+    @Override
+    public int delete(ListeAlimentDto lst, IngredientDto ing) throws RemoteException {
+        return foodRemote.delete(lst,ing);
+    }
+
+    @Override
+    public int delete(ListeRecetteDto lst, ComposantDto cmp) throws RemoteException {
+        return foodRemote.delete(lst,cmp);
+    }
+
+    @Override
+    public List get(CaseEnum cat, GenericDto dto) throws RemoteException {
+        return foodRemote.get(cat, dto);
     }
     
 }

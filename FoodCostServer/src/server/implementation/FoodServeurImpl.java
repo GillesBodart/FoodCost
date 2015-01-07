@@ -8,7 +8,7 @@ package server.implementation;
 import common.dto.*;
 import common.interfaces.FoodModele;
 import common.seldto.*;
-import common.tools.Category;
+import common.tools.CaseEnum;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
@@ -24,7 +24,7 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     }
 
     @Override
-    public List getAll(Category cat) throws RemoteException {
+    public List getAll(CaseEnum cat) throws RemoteException {
         try {
             switch (cat) {
                 case ALIMENT:
@@ -45,7 +45,7 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     }
 
     @Override
-    public GenericDto getByName(Category cat, String name) throws RemoteException {
+    public GenericDto getByName(CaseEnum cat, String name) throws RemoteException {
         try {
             switch (cat) {
                 case ALIMENT:
@@ -66,7 +66,7 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     }
 
     @Override
-    public GenericDto getById(Category cat, GenericDto id) throws RemoteException {
+    public GenericDto getById(CaseEnum cat, GenericDto id) throws RemoteException {
         try {
             switch (cat) {
                 case ALIMENT:
@@ -87,7 +87,7 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     }
 
     @Override
-    public List getBySel(Category cat, GenericSel sel) throws RemoteException {
+    public List getBySel(CaseEnum cat, GenericSel sel) throws RemoteException {
          try {
             switch (cat) {
                 case ALIMENT:
@@ -110,7 +110,7 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     }
 
     @Override
-    public int add(Category cat, GenericDto rec) throws RemoteException {
+    public int add(CaseEnum cat, GenericDto rec) throws RemoteException {
         try {
             switch (cat) {
                 case ALIMENT:
@@ -133,11 +133,13 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     }
 
     @Override
-    public int getNbElem(Category cat, GenericDto rec) throws RemoteException {
+    public int getNbElem(CaseEnum cat, GenericDto rec) throws RemoteException {
         try {
             switch (cat) {
                 case CATEGORIE:
                     return AdminFacade.getNbElem((CategorieDto)rec);
+                case ELEM_SOUS_CATEGORIE:
+                    return AdminFacade.getNbSC((CategorieDto)rec);
                 case SOUS_CATEGORIE:
                     return AdminFacade.getNbElem((SousCategorieDto)rec);
                 default:
@@ -150,7 +152,7 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     }
 
     @Override
-    public int update(Category cat, GenericDto dto1,GenericDto dto2) throws RemoteException {
+    public int update(CaseEnum cat, GenericDto dto1,GenericDto dto2) throws RemoteException {
         try {
             switch (cat) {
                 case ALIMENT:
@@ -201,6 +203,42 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     public List<IngredientDto> getIngredientsFromCommande(CommandeDto com) throws RemoteException {
         try {
             return AdminFacade.getIngredientsFromCommande(com);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public int delete(ListeAlimentDto lst, IngredientDto ing) throws RemoteException {
+        try {
+            return AdminFacade.supprimeIngre(lst, ing);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    @Override
+    public int delete(ListeRecetteDto lst, ComposantDto ing) throws RemoteException {
+        try {
+            return AdminFacade.supprimeCompo(lst, ing);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return -1;
+    }
+
+    @Override
+    public List get(CaseEnum cat, GenericDto dto) throws RemoteException {
+        try {
+            switch (cat) {
+                
+                case CONTENTENU_LISTE_COMMANDE:
+                    return AdminFacade.getContenuListe((CommandeDto)dto);
+                default:
+                    return null;
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

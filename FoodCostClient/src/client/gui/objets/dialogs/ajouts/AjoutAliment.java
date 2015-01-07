@@ -4,30 +4,26 @@
  */
 package client.gui.objets.dialogs.ajouts;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.AlimentDto;
-import common.exception.RestoBusinessException;
-import common.exception.RestoDTOException;
+import common.tools.CaseEnum;
 import common.tools.CommonTool;
 import common.tools.Unit;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import resto.business.AdminFacade;
 
 /**
  *
  * @author Gilles
  */
-public class AjoutAliment extends javax.swing.JDialog {
+public class AjoutAliment extends GenericDialog {
 
     /**
      * Creates new form AjoutAliment
      */
-    public AjoutAliment(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public AjoutAliment(java.awt.Frame parent, boolean modal,FoodClientImpl modele) {
+        super(parent, modal,modele,"Ajout d'aliment");
         initComponents();
-        setLocationRelativeTo(null);
-        setTitle("Ajout d'aliment");
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
     }
 
     /**
@@ -150,9 +146,10 @@ public class AjoutAliment extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            AdminFacade.AjoutAliment(new AlimentDto(0, jTextNom.getText(), selectSousCategorie1.getObjectSelected(), CommonTool.round(Double.parseDouble(jTextPrix.getText()), 4), jTextFou.getText(), (Unit) jComboBox1.getSelectedItem()));
+            AlimentDto elem = new AlimentDto(0, jTextNom.getText(), selectSousCategorie1.getObjectSelected(), CommonTool.round(Double.parseDouble(jTextPrix.getText()), 4), jTextFou.getText(), (Unit) jComboBox1.getSelectedItem());
+            modele.add(CaseEnum.ALIMENT, elem);
             this.dispose();
-        } catch (NumberFormatException | RestoDTOException | RestoBusinessException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "n'entre que des chiffres dans le champ prix" + ex.getMessage(), "Error Massage",
                     JOptionPane.ERROR_MESSAGE);
@@ -163,47 +160,6 @@ public class AjoutAliment extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextPrixActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AjoutAliment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AjoutAliment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AjoutAliment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AjoutAliment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AjoutAliment dialog = new AjoutAliment(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;

@@ -6,20 +6,21 @@ package client.gui.objets.dialogs.ajouts;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import resto.business.AdminFacade;
 import client.gui.objets.element.JPanelIngre;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.IngredientDto;
 import common.dto.ListeAlimentDto;
 import common.dto.RecetteDto;
+import common.tools.CaseEnum;
 import common.tools.CommonTool;
 
 /**
  *
  * @author Gilles
  */
-public class AjoutRecette extends javax.swing.JDialog {
+public class AjoutRecette extends GenericDialog {
 
     private Double prixTmp = 0.0;
     private Collection<IngredientDto> lstAli;
@@ -30,13 +31,10 @@ public class AjoutRecette extends javax.swing.JDialog {
     /**
      * Creates new form AjoutRecette
      */
-    public AjoutRecette(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public AjoutRecette(java.awt.Frame parent, boolean modal,FoodClientImpl modele) {
+        super(parent, modal,modele,"Ajout de recette");
         lstAli = new ArrayList<>();
         initComponents();
-        setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-        setTitle("Ajout de recette");
     }
 
     /**
@@ -234,7 +232,7 @@ public class AjoutRecette extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             recette = new RecetteDto(0, jTextNom.getText(), new ListeAlimentDto(0, 0, lstAli), prixTmp, Integer.parseInt(jTextCouv.getText()));
-            AdminFacade.AjoutRecettes(recette);
+            modele.add(CaseEnum.RECETTE, recette);
             this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
@@ -257,47 +255,6 @@ public class AjoutRecette extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButtonSupIActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AjoutRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AjoutRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AjoutRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AjoutRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AjoutRecette dialog = new AjoutRecette(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAI;

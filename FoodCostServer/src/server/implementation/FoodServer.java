@@ -5,7 +5,6 @@
  */
 package server.implementation;
 
-import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -22,6 +21,7 @@ public class FoodServer {
                 folders[i] = new FoodServeurImpl();
             }
             LocateRegistry.createRegistry(1099);
+            //Registry registry = LocateRegistry.getRegistry("gillesbodart.ddns.net");
             int cpt = 0;
             for (FoodServeurImpl srv : folders) {
                 cpt++;
@@ -34,7 +34,7 @@ public class FoodServer {
                 Thread.sleep(1);
             }
             System.exit(0);
-        } catch (RemoteException | MalformedURLException | InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }

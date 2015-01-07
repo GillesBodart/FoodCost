@@ -6,35 +6,26 @@ package client.gui.objets.dialogs;
 
 import javax.swing.ImageIcon;
 import client.gui.objets.dialogs.modif.ModifComposant;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.ComposantDto;
 import common.dto.ListeRecetteDto;
 import javax.swing.JOptionPane;
-import resto.db.ListeRecetteDB;
 
 /**
  *
  * @author Gilles
  */
-public class ChoixModifComp extends javax.swing.JDialog {
+public class ChoixModifComp extends GenericDialog {
 
-    private ComposantDto ing;
+    private ComposantDto cmp;
     private ListeRecetteDto lst;
     private boolean isModif;
 
-    /**
-     * Creates new form ChoixModifComp
-     */
-    public ChoixModifComp(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public ChoixModifComp(java.awt.Frame parent, boolean modal,FoodClientImpl modele , ComposantDto cmp, ListeRecetteDto lst) {
+        super(parent, modal,modele,"Option de modification");
         initComponents();
-        setLocationRelativeTo(null);
-        setTitle("Option de modification");
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-    }
-
-    public ChoixModifComp(java.awt.Frame parent, boolean modal, ComposantDto ing, ListeRecetteDto lst) {
-        this(parent, modal);
-        this.ing = ing;
+        this.cmp = cmp;
         this.lst = lst;
     }
 
@@ -93,9 +84,9 @@ public class ChoixModifComp extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ModifComposant modif = new ModifComposant(null, true, ing, lst);
+        ModifComposant modif = new ModifComposant(null, true, cmp, lst);
         modif.setVisible(true);
-        this.ing = modif.getCompo();
+        this.cmp = modif.getCompo();
         isModif = true;
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -103,7 +94,7 @@ public class ChoixModifComp extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         isModif = false;
         try {
-            ListeRecetteDB.deleteCompoDb(lst, ing);
+            modele.delete(lst, cmp);
             dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
@@ -111,51 +102,8 @@ public class ChoixModifComp extends javax.swing.JDialog {
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChoixModifComp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChoixModifComp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChoixModifComp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChoixModifComp.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ChoixModifComp dialog = new ChoixModifComp(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     public ComposantDto getCompo() {
-        return ing;
+        return cmp;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

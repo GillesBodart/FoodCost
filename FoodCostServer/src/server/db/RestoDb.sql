@@ -4,19 +4,19 @@ designed by Bodart Gilles
 --------------------------
 */
 alter table ALIMENT
-	drop constraint ALIMENTFK;
+    drop constraint ALIMENTFK;
 
-	alter table SOUSCATEGORIE
-	drop constraint CATEGORIEFK;
+alter table SOUSCATEGORIE
+    drop constraint CATEGORIEFK;
 	
-	alter table COMMANDE
-	drop constraint COMMANDEFK;
+alter table COMMANDE
+    drop constraint COMMANDEFK;
 
-	alter table LISTEINGREDIENT
-	drop constraint LISTEINGREDIENTRECETTEFK;
+alter table LISTEINGREDIENT
+    drop constraint LISTEINGREDIENTRECETTEFK;
 
-	alter table LISTEINGREDIENT
-	drop constraint LISTEINGREDIENTALIMENTFK;
+alter table LISTEINGREDIENT
+    drop constraint LISTEINGREDIENTALIMENTFK;
 
 
 
@@ -36,20 +36,26 @@ create table ALIMENT (
 	aliCat integer not null,
 	aliPrix numeric(10,4) not null,
 	aliUnit varchar (255)
-	);
+);
+
+create table Compte (
+	cptId integer primary key,
+	cptLogin varchar (255) not null,
+	cptMdp   varchar (255) not null
+);
 	
 create table CATEGORIE (
 	catId integer primary key,
 	catNom varchar (255) not null,
 	constraint CATEGORIEUnique unique (catNom)
-	);
+);
 
 create table SOUSCATEGORIE (
 	sousCatId integer primary key,
 	sousCatNom varchar (255) not null,
 	categorie integer not null,
 	constraint SOUSCATEGORIEUnique unique (sousCatNom)
-	);
+);
 
 
 create table RECETTE (
@@ -57,8 +63,10 @@ create table RECETTE (
 	recNom varchar (255) not null,
 	recLstIng integer,
 	recPrix numeric(10,4),
-	recNbCouv integer
-	);
+	recNbCouv integer,
+        recPublic numeric(1),
+        recTitu integer
+);
 	
 create table LISTEINGREDIENT (
 	lstId integer,
@@ -69,7 +77,7 @@ create table LISTEINGREDIENT (
 
 	constraint LISTEINGREDIENTPK primary key (lstId,lstNo),
 	constraint 	LISTEINGREDIENTUNique unique (lstId,lstAli)
-	);
+);
 
 create table LISTERECETTE (
 	lstId integer,
@@ -79,25 +87,31 @@ create table LISTERECETTE (
 
 	constraint LISTERECETTEPK primary key (lstId,lstNo),
 	constraint LISTERECETTEUNIQUE unique (lstId,lstRct)
-	);
+);
 
 create table COMMANDE (
 	comId integer primary key,
 	comNom varchar(255) not null,
 	comLstRec integer ,
-	comPrix numeric(10,4)
-	);
+	comPrix numeric(10,4),
+        comTitu
+);
 
 create table SEQUENCES (
      id varchar(50) not null,
      valeur numeric(10) not null,
-     constraint IDSEQUENCE primary key (id));
+     constraint IDSEQUENCE primary key (id)
+);
 
-	alter table ALIMENT
+alter table ALIMENT
 	add constraint ALIMENTFK foreign key (aliCat) references SOUSCATEGORIE;
 
-	alter table SOUSCATEGORIE
+alter table SOUSCATEGORIE
 	add constraint CATEGORIEFK foreign key (categorie) references CATEGORIE;
+alter table COMMANDE
+	add constraint COMMANDEFK foreign key (comTitu) references Compte;
+alter table RECETTE
+	add constraint RECETTEFK foreign key (rctTitu) references Compte;
 	
 	--alter table COMMANDE
 	--add constraint COMMANDEFK foreign key (comLstRec) references RECETTE;
@@ -105,7 +119,7 @@ create table SEQUENCES (
 	--alter table LISTEINGREDIENT
 	--add constraint LISTEINGREDIENTRECETTEFK foreign key (lstId) references RECETTE;
 	
-	alter table LISTEINGREDIENT
+alter table LISTEINGREDIENT
 	add constraint LISTEINGREDIENTALIMENTFK foreign key (lstAli) references ALIMENT;
 	
 
@@ -119,3 +133,4 @@ create table SEQUENCES (
 	Insert Into SEQUENCES values('ListeRecette', 0);
 	Insert Into SEQUENCES values('NumLigne', 0);
 	Insert Into SEQUENCES values('Commande', 0);
+	Insert Into SEQUENCES values('Compte', 0);
