@@ -12,6 +12,7 @@ package common.tools;
 public enum CaseEnum {
     ACCOUNT,
     ALIMENT,
+    INGREDIENT,
     CATEGORIE,
     COMMANDE,
     LISTE_ALIMENT,
@@ -19,5 +20,8 @@ public enum CaseEnum {
     RECETTE,
     SOUS_CATEGORIE,
     ELEM_SOUS_CATEGORIE,
-    CONTENTENU_LISTE_COMMANDE
+    CONTENTENU_LISTE_COMMANDE,
+    AJOUT_COMPOSANT_RECETTE,
+    MAJ_COMMANDE,
+    MAJ_SOUS_CATEGORIE
 }

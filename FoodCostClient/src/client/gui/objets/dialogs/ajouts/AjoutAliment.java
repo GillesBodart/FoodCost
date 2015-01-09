@@ -43,7 +43,7 @@ public class AjoutAliment extends GenericDialog {
         jTextFou = new javax.swing.JTextField();
         jTextPrix = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        selectSousCategorie1 = new client.gui.objets.element.SelectSousCategorie();
+        selectSousCategorie1 = new client.gui.objets.element.SelectSousCategorie(modele);
         jComboBox1 = new javax.swing.JComboBox();
         jLabel5 = new javax.swing.JLabel();
 
@@ -147,7 +147,7 @@ public class AjoutAliment extends GenericDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             AlimentDto elem = new AlimentDto(0, jTextNom.getText(), selectSousCategorie1.getObjectSelected(), CommonTool.round(Double.parseDouble(jTextPrix.getText()), 4), jTextFou.getText(), (Unit) jComboBox1.getSelectedItem());
-            modele.add(CaseEnum.ALIMENT, elem);
+            modele.add(CaseEnum.ALIMENT, elem,null);
             this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,

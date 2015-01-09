@@ -70,13 +70,13 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
         try {
             switch (cat) {
                 case ALIMENT:
-                    return AdminFacade.getAlimentById((AlimentDto)id);
+                    return AdminFacade.getAlimentById((AlimentDto) id);
                 case CATEGORIE:
-                    return AdminFacade.getCategorieById((CategorieDto)id);
+                    return AdminFacade.getCategorieById((CategorieDto) id);
                 case RECETTE:
-                    return AdminFacade.getRecetteById((RecetteDto)id);
+                    return AdminFacade.getRecetteById((RecetteDto) id);
                 case SOUS_CATEGORIE:
-                    return AdminFacade.getSousCategorieById((SousCategorieDto)id);
+                    return AdminFacade.getSousCategorieById((SousCategorieDto) id);
                 default:
                     return null;
             }
@@ -88,18 +88,18 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
 
     @Override
     public List getBySel(CaseEnum cat, GenericSel sel) throws RemoteException {
-         try {
+        try {
             switch (cat) {
                 case ALIMENT:
-                    return AdminFacade.getAliment((AlimentSel)sel);
+                    return AdminFacade.getAliment((AlimentSel) sel);
                 case CATEGORIE:
-                    return AdminFacade.getCategorie((CategorieSel)sel);
+                    return AdminFacade.getCategorie((CategorieSel) sel);
                 case RECETTE:
-                    return AdminFacade.getRecette((RecetteSel)sel);
+                    return AdminFacade.getRecette((RecetteSel) sel);
                 case SOUS_CATEGORIE:
-                    return AdminFacade.getSousCategorie((SousCategorieSel)sel);
+                    return AdminFacade.getSousCategorie((SousCategorieSel) sel);
                 case COMMANDE:
-                    return AdminFacade.getCommande((CommandeSel)sel);
+                    return AdminFacade.getCommande((CommandeSel) sel);
                 default:
                     return null;
             }
@@ -110,19 +110,25 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     }
 
     @Override
-    public int add(CaseEnum cat, GenericDto rec) throws RemoteException {
+    public int add(CaseEnum cat, GenericDto dto1, GenericDto dto2) throws RemoteException {
         try {
             switch (cat) {
                 case ALIMENT:
-                    return AdminFacade.AjoutAliment((AlimentDto)rec);
+                    return AdminFacade.AjoutAliment((AlimentDto) dto1);
+                case INGREDIENT:
+                    return AdminFacade.AjoutIngredient((ListeAlimentDto) dto1, (IngredientDto) dto2);
                 case CATEGORIE:
-                    return AdminFacade.AjoutCategorie((CategorieDto)rec);
+                    return AdminFacade.AjoutCategorie((CategorieDto) dto1);
                 case RECETTE:
-                    return AdminFacade.AjoutRecettes((RecetteDto)rec);
+                    return AdminFacade.AjoutRecettes((RecetteDto) dto1);
+                case MAJ_SOUS_CATEGORIE:
+                    return AdminFacade.updateSousCategorie((SousCategorieDto) dto1);
                 case SOUS_CATEGORIE:
-                    return AdminFacade.AjoutSousCategorie((SousCategorieDto)rec);
+                    return AdminFacade.AjoutSousCategorie((SousCategorieDto) dto1);
                 case COMMANDE:
-                    return AdminFacade.AjoutCommande((CommandeDto)rec);
+                    return AdminFacade.AjoutCommande((CommandeDto) dto1);
+                case AJOUT_COMPOSANT_RECETTE:
+                    return AdminFacade.AjoutElementCommande((ListeRecetteDto) dto1, (ComposantDto) dto2);
                 default:
                     return -1;
             }
@@ -137,11 +143,11 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
         try {
             switch (cat) {
                 case CATEGORIE:
-                    return AdminFacade.getNbElem((CategorieDto)rec);
+                    return AdminFacade.getNbElem((CategorieDto) rec);
                 case ELEM_SOUS_CATEGORIE:
-                    return AdminFacade.getNbSC((CategorieDto)rec);
+                    return AdminFacade.getNbSC((CategorieDto) rec);
                 case SOUS_CATEGORIE:
-                    return AdminFacade.getNbElem((SousCategorieDto)rec);
+                    return AdminFacade.getNbElem((SousCategorieDto) rec);
                 default:
                     return -1;
             }
@@ -152,24 +158,26 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     }
 
     @Override
-    public int update(CaseEnum cat, GenericDto dto1,GenericDto dto2) throws RemoteException {
+    public int update(CaseEnum cat, GenericDto dto1, GenericDto dto2) throws RemoteException {
         try {
             switch (cat) {
                 case ALIMENT:
-                    return AdminFacade.modifAliment((AlimentDto)dto1);
+                    return AdminFacade.modifAliment((AlimentDto) dto1);
                 case CATEGORIE:
-                    return AdminFacade.modifCategorie((CategorieDto)dto1);
+                    return AdminFacade.modifCategorie((CategorieDto) dto1);
                 case RECETTE:
-                    AdminFacade.majDBFromRecette((RecetteDto)dto1);
-                    return 1;     
+                    AdminFacade.majDBFromRecette((RecetteDto) dto1);
+                    return 1;
                 case LISTE_ALIMENT:
-                    return AdminFacade.modifListeAli((RecetteDto)dto1,(IngredientDto)dto2);
+                    return AdminFacade.modifListeAli((RecetteDto) dto1, (IngredientDto) dto2);
                 case LISTE_RECETTE:
-                    return AdminFacade.modifListeRecette((CommandeDto)dto1,(ComposantDto)dto2);
+                    return AdminFacade.modifListeRecette((CommandeDto) dto1, (ComposantDto) dto2);
                 case SOUS_CATEGORIE:
-                    return AdminFacade.modifSousCategorie((SousCategorieDto)dto1);
+                    return AdminFacade.modifSousCategorie((SousCategorieDto) dto1);
                 case COMMANDE:
-                    return AdminFacade.modifCommande((CommandeDto)dto1);
+                    return AdminFacade.modifCommande((CommandeDto) dto1);
+                case MAJ_COMMANDE:
+                    return AdminFacade.updateCommande((CommandeDto) dto1);
                 default:
                     return -1;
             }
@@ -233,9 +241,9 @@ public class FoodServeurImpl extends UnicastRemoteObject implements FoodModele {
     public List get(CaseEnum cat, GenericDto dto) throws RemoteException {
         try {
             switch (cat) {
-                
+
                 case CONTENTENU_LISTE_COMMANDE:
-                    return AdminFacade.getContenuListe((CommandeDto)dto);
+                    return AdminFacade.getContenuListe((CommandeDto) dto);
                 default:
                     return null;
             }

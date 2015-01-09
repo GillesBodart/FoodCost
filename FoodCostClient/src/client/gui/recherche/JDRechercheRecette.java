@@ -4,37 +4,29 @@
  */
 package client.gui.recherche;
 
-import be.esi.alg2.gui.outils.JDRechGenerique;
-import be.esi.alg2.gui.outils.MaJTableInitialisationException;
 import java.util.Collection;
-import javax.swing.ImageIcon;
-import resto.business.AdminFacade;
 import client.gui.criteres.JPCritSelRecette;
 import client.gui.table.MaJTableRecette;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericRecherche;
 import common.dto.RecetteDto;
-import common.exception.RestoBusinessException;
 import common.seldto.RecetteSel;
+import common.tools.CaseEnum;
+import java.rmi.RemoteException;
 
 /**
  *
  * @author g38302
  */
-public class JDRechercheRecette extends JDRechGenerique<RecetteSel, RecetteDto> {
+public class JDRechercheRecette extends GenericRecherche<RecetteSel, RecetteDto> {
 
-    public JDRechercheRecette(java.awt.Frame parent, boolean modal, String title, JPCritSelRecette crit, MaJTableRecette jT) {
-        super(parent, modal, title, crit, jT);
-        setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
+    public JDRechercheRecette(java.awt.Frame parent, boolean modal,FoodClientImpl modele, String title, JPCritSelRecette crit, MaJTableRecette jT) {
+        super(parent, modal,modele, title, crit, jT);
     }
 
     @Override
-    protected Collection<RecetteDto> recherche(RecetteSel crit) throws RestoBusinessException {
-        return AdminFacade.getRecette(crit);
-    }
-
-    public static void main(String[] args) throws MaJTableInitialisationException {
-        new JDRechercheRecette(null, true, "Sélection d'une recette", new JPCritSelRecette(),
-                new MaJTableRecette()).setVisible(true);
+    protected Collection<RecetteDto> recherche(RecetteSel crit) throws RemoteException {
+        return modele.getBySel(CaseEnum.RECETTE, crit);
     }
 
     /**

@@ -57,8 +57,8 @@ public class FoodClientImpl implements FoodModele{
     }
 
     @Override
-    public int add(CaseEnum cat, GenericDto rec) throws RemoteException {
-        return foodRemote.add(cat, rec);
+    public int add(CaseEnum cat, GenericDto dto1, GenericDto dto2) throws RemoteException {
+        return foodRemote.add(cat, dto1,dto2);
     }
 
     @Override

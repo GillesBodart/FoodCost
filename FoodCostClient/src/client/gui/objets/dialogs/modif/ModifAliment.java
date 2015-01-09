@@ -4,45 +4,34 @@
  */
 package client.gui.objets.dialogs.modif;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.AlimentDto;
-import common.exception.RestoBusinessException;
+import common.tools.CaseEnum;
 import common.tools.Unit;
-import java.awt.HeadlessException;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import resto.business.AdminFacade;
 
 /**
  *
  * @author Gilles
  */
-public class ModifAliment extends javax.swing.JDialog {
+public class ModifAliment extends GenericDialog {
 
     private AlimentDto ali;
 
     /**
      * Creates new form MonAliment
      */
-    public ModifAliment(java.awt.Frame parent, boolean modal, AlimentDto ali) {
-        this(parent, modal);
+    public ModifAliment(java.awt.Frame parent, boolean modal, FoodClientImpl modele, AlimentDto ali) {
+        super(parent, modal, modele, "Modification de l'aliment : " + ali.getLibelle());
+        initComponents();
         this.ali = ali;
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
         jTextFieldNom.setText(ali.getLibelle());
         jTextFieldFou.setText(ali.getFournisseur());
         selectSousCategorie1.setSelectionByObject(ali.getCategorie());
         jTextFieldPrix.setText(ali.getAliPrix() + "");
         jComboBox1.setSelectedItem(ali.getUnit());
-        setLocationRelativeTo(null);
-        setTitle("Modification de l'aliment : " + ali.getLibelle());
-    }
-
-    /**
-     * Creates new form MonAliment
-     */
-    public ModifAliment(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
     }
 
     /**
@@ -63,7 +52,7 @@ public class ModifAliment extends javax.swing.JDialog {
         jTextFieldNom = new javax.swing.JTextField();
         jTextFieldFou = new javax.swing.JTextField();
         jTextFieldPrix = new javax.swing.JTextField();
-        selectSousCategorie1 = new client.gui.objets.element.SelectSousCategorie();
+        selectSousCategorie1 = new client.gui.objets.element.SelectSousCategorie(modele);
         jLabel6 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
 
@@ -200,57 +189,16 @@ public class ModifAliment extends javax.swing.JDialog {
             ali.setUnit((Unit) jComboBox1.getSelectedItem());
             int reply = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment modifier cet aliment ?", "Veuillez confirmer", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                AdminFacade.modifAliment(ali);
+                modele.update(CaseEnum.ALIMENT, ali, null);
                 dispose();
             }
-        } catch (NumberFormatException | HeadlessException | RestoBusinessException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Tu vas tout casser !! \n" + ex.getMessage(), "Error Massage",
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifAliment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifAliment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifAliment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifAliment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ModifAliment dialog = new ModifAliment(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

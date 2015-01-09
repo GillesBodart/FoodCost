@@ -4,38 +4,31 @@
  */
 package client.gui.recherche;
 
-import be.esi.alg2.gui.outils.JDRechGenerique;
-import be.esi.alg2.gui.outils.MaJTableInitialisationException;
 import java.util.Collection;
-import javax.swing.ImageIcon;
-import resto.business.AdminFacade;
 import client.gui.criteres.JPCritSelSousCategorie;
 import client.gui.table.MaJTableSousCategorie;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericRecherche;
 import common.dto.SousCategorieDto;
-import common.exception.RestoBusinessException;
 import common.seldto.SousCategorieSel;
+import common.tools.CaseEnum;
+import java.rmi.RemoteException;
 
 /**
  *
  * @author g38302
  */
-public class JDRechercheSousCategorie extends JDRechGenerique<SousCategorieSel, SousCategorieDto> {
+public class JDRechercheSousCategorie extends GenericRecherche<SousCategorieSel, SousCategorieDto> {
 
-    public JDRechercheSousCategorie(java.awt.Frame parent, boolean modal, String title, JPCritSelSousCategorie crit, MaJTableSousCategorie jT) {
-        super(parent, modal, title, crit, jT);
-        setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
+    public JDRechercheSousCategorie(java.awt.Frame parent, boolean modal,FoodClientImpl modele, String title, JPCritSelSousCategorie crit, MaJTableSousCategorie jT) {
+        super(parent, modal,modele, title, crit, jT);
     }
 
     @Override
-    protected Collection<SousCategorieDto> recherche(SousCategorieSel crit) throws RestoBusinessException {
-        return AdminFacade.getSousCategorie(crit);
+    protected Collection<SousCategorieDto> recherche(SousCategorieSel crit) throws RemoteException {
+        return modele.getBySel(CaseEnum.SOUS_CATEGORIE, crit);
     }
 
-    public static void main(String[] args) throws MaJTableInitialisationException {
-        new JDRechercheSousCategorie(null, true, "Sélection d'une sous-catégorie", new JPCritSelSousCategorie(),
-                new MaJTableSousCategorie()).setVisible(true);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

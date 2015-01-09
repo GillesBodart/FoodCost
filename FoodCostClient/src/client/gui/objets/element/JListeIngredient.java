@@ -4,6 +4,8 @@
  */
 package client.gui.objets.element;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericPanel;
 import common.dto.IngredientDto;
 import common.dto.ListeAlimentDto;
 import common.dto.ModificationIngreDto;
@@ -16,14 +18,15 @@ import java.util.Collection;
  *
  * @author Gilles
  */
-public class JListeIngredient extends javax.swing.JPanel {
+public class JListeIngredient extends GenericPanel {
 
     private ArrayList<ModificationIngreDto> listModif;
 
     /**
      * Creates new form JListeIngredient
      */
-    public JListeIngredient() {
+    public JListeIngredient(FoodClientImpl modele) {
+        super(modele);
         initComponents();
     }
 
@@ -81,13 +84,13 @@ public class JListeIngredient extends javax.swing.JPanel {
         Dimension dim = this.getPreferredSize();
         if (modif) {
             for (IngredientDto ing : listeAliments.getIngredients()) {
-                JBoutIngre jb = new JBoutIngre(ing, listeAliments);
+                JBoutIngre jb = new JBoutIngre(modele,ing, listeAliments);
                 jb.setPreferredSize(new Dimension(dim.width, jb.getPreferredSize().height));
                 this.addElem(jb);
             }
         } else {
             for (IngredientDto ing : listeAliments.getIngredients()) {
-                JPanelIngre jp = new JPanelIngre(ing);
+                JPanelIngre jp = new JPanelIngre(modele,ing);
                 jp.setPreferredSize(new Dimension(dim.width, jp.getPreferredSize().height));
                 this.addElem(jp);
             }
@@ -97,7 +100,7 @@ public class JListeIngredient extends javax.swing.JPanel {
     public void setElmnt(Collection<IngredientDto> ingredients) {
         Dimension dim = this.getPreferredSize();
         for (IngredientDto ing : ingredients) {
-            JPanelIngre jp = new JPanelIngre(ing);
+            JPanelIngre jp = new JPanelIngre(modele,ing);
             jp.setPreferredSize(new Dimension(dim.width, jp.getPreferredSize().height));
             this.addElem(jp);
         }

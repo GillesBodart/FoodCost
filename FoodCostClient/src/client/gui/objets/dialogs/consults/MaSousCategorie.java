@@ -4,39 +4,27 @@
  */
 package client.gui.objets.dialogs.consults;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.SousCategorieDto;
-import common.exception.RestoBusinessException;
-import javax.swing.ImageIcon;
+import common.tools.CaseEnum;
 import javax.swing.JOptionPane;
-import resto.business.AdminFacade;
 
 /**
  *
  * @author Gilles
  */
-public class MaSousCategorie extends javax.swing.JDialog {
+public class MaSousCategorie extends GenericDialog {
 
-    private SousCategorieDto sousCat;
 
-    /**
-     * Creates new form MaSousCategorie
-     */
-    public MaSousCategorie(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public MaSousCategorie(java.awt.Frame parent, boolean modal, FoodClientImpl modele, SousCategorieDto sousCat) {
+        super(parent, modal, modele, "Apperçu de la sous-catégorie : " + sousCat.getNom());
         initComponents();
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-        setLocationRelativeTo(null);
-    }
-
-    public MaSousCategorie(java.awt.Frame parent, boolean modal, SousCategorieDto sousCat) {
-        this(parent, modal);
         try {
-            this.sousCat = sousCat;
             this.jLabelNom.setText(sousCat.getNom());
             this.jLabelCate.setText(sousCat.getNomCategorie());
-            this.jLabelNbE.setText(AdminFacade.getNbElem(sousCat) + "");
-            setTitle("Apperçu de la sous-catégorie : " + sousCat.getNom());
-        } catch (RestoBusinessException ex) {
+            this.jLabelNbE.setText(modele.getNbElem(CaseEnum.SOUS_CATEGORIE, sousCat) + "");
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Fais un peu attention tu vas tout bousiller " + ex.getMessage(), "Error Massage",
                     JOptionPane.ERROR_MESSAGE);
@@ -137,47 +125,6 @@ public class MaSousCategorie extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaSousCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaSousCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaSousCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MaSousCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MaSousCategorie dialog = new MaSousCategorie(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

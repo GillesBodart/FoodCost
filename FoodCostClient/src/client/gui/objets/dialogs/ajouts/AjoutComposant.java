@@ -40,7 +40,7 @@ public class AjoutComposant extends GenericDialog {
         jTextQuan = new javax.swing.JTextField();
         jToggleButton1 = new javax.swing.JToggleButton();
         jLabel3 = new javax.swing.JLabel();
-        selectRecette1 = new client.gui.objets.element.SelectRecette();
+        selectRecette1 = new client.gui.objets.element.SelectRecette(modele);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 

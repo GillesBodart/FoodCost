@@ -5,6 +5,8 @@
 package client.gui.objets.element;
 
 import client.gui.objets.dialogs.ChoixModifIngre;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericPanel;
 import common.dto.IngredientDto;
 import common.dto.ListeAlimentDto;
 import common.dto.ModificationIngreDto;
@@ -13,7 +15,7 @@ import common.dto.ModificationIngreDto;
  *
  * @author Gilles
  */
-public class JBoutIngre extends javax.swing.JPanel {
+public class JBoutIngre extends GenericPanel {
 
     private ListeAlimentDto lst;
     private IngredientDto ing;
@@ -25,7 +27,8 @@ public class JBoutIngre extends javax.swing.JPanel {
     /**
      * Creates new form JPanelIngre
      */
-    public JBoutIngre(IngredientDto ing, ListeAlimentDto lst) {
+    public JBoutIngre(FoodClientImpl modele,IngredientDto ing, ListeAlimentDto lst) {
+        super(modele);
         initComponents();
         this.lst = lst;
         this.ing = ing;
@@ -69,7 +72,7 @@ public class JBoutIngre extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInActionPerformed
-        ChoixModifIngre modif = new ChoixModifIngre(null, true, ing, lst);
+        ChoixModifIngre modif = new ChoixModifIngre(null, true,modele, ing, lst);
         modif.setVisible(true);
         this.ing = modif.getIngre();
         if (modif.isModifEnded()) {

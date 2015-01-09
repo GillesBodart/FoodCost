@@ -48,7 +48,7 @@ public class MaListeAliments extends GenericDialog {
         jLabelTitre = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jListeIngredient1 = new client.gui.objets.element.JListeIngredient();
+        jListeIngredient1 = new client.gui.objets.element.JListeIngredient(modele);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 

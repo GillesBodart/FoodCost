@@ -37,7 +37,7 @@ public class AjoutSousCatégorie extends GenericDialog {
         jTextNom = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        selectCategorie1 = new client.gui.objets.element.SelectCategorie();
+        selectCategorie1 = new client.gui.objets.element.SelectCategorie(modele);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -98,7 +98,7 @@ public class AjoutSousCatégorie extends GenericDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            modele.add(CaseEnum.SOUS_CATEGORIE,new SousCategorieDto(0, jTextNom.getText(), selectCategorie1.getObjectSelected()));
+            modele.add(CaseEnum.SOUS_CATEGORIE,new SousCategorieDto(0, jTextNom.getText(), selectCategorie1.getObjectSelected()),null);
             this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,

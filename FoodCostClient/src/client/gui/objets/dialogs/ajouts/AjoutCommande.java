@@ -54,7 +54,7 @@ public class AjoutCommande extends GenericDialog {
         jLabelPrix = new javax.swing.JLabel();
         jLabelPrix2 = new javax.swing.JLabel();
         jButtonSupI = new javax.swing.JButton();
-        jListeRecette = new client.gui.objets.element.JListeRecette();
+        jListeRecette = new client.gui.objets.element.JListeRecette(modele);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -158,7 +158,7 @@ public class AjoutCommande extends GenericDialog {
         aI.setVisible(true);
         if (aI.getExit() == 0) {
             lastComp = aI.getComp();
-            lastPanelComp = new JPanelComp(lastComp);
+            lastPanelComp = new JPanelComp(modele,lastComp);
             jListeRecette.addElem(lastPanelComp);
             prixTmp += lastComp.getPrix();
             lstComp.add(lastComp);
@@ -172,7 +172,7 @@ public class AjoutCommande extends GenericDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             commande = new CommandeDto(0, jTextNom.getText(), new ListeRecetteDto(0, 0, lstComp), prixTmp);
-            modele.add(CaseEnum.COMMANDE, commande);
+            modele.add(CaseEnum.COMMANDE, commande,null);
             this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,

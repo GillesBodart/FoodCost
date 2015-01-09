@@ -4,6 +4,8 @@
  */
 package client.gui.objets.element;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericPanel;
 import common.dto.ComposantDto;
 import common.dto.ListeRecetteDto;
 import common.dto.ModificationCompDto;
@@ -15,14 +17,15 @@ import java.util.ArrayList;
  *
  * @author Gilles
  */
-public class JListeRecette extends javax.swing.JPanel {
+public class JListeRecette extends GenericPanel {
 
     private ArrayList<ModificationCompDto> listModif;
 
     /**
      * Creates new form JListeComposant
      */
-    public JListeRecette() {
+    public JListeRecette(FoodClientImpl modele) {
+        super(modele);
         initComponents();
     }
 
@@ -80,13 +83,13 @@ public class JListeRecette extends javax.swing.JPanel {
         Dimension dim = this.getPreferredSize();
         if (modif) {
             for (ComposantDto ing : listeRecette.getComposants()) {
-                JBoutComp jb = new JBoutComp(ing, listeRecette);
+                JBoutComp jb = new JBoutComp(modele,ing, listeRecette);
                 jb.setPreferredSize(new Dimension(dim.width, jb.getPreferredSize().height));
                 this.addElem(jb);
             }
         } else {
             for (ComposantDto ing : listeRecette.getComposants()) {
-                JPanelComp jp = new JPanelComp(ing);
+                JPanelComp jp = new JPanelComp(modele,ing);
                 jp.setPreferredSize(new Dimension(dim.width, jp.getPreferredSize().height));
                 this.addElem(jp);
             }

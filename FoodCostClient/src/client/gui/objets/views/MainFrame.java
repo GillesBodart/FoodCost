@@ -6,36 +6,16 @@ package client.gui.objets.views;
 
 import be.esi.alg2.gui.outils.MaJTableInitialisationException;
 import javax.swing.JOptionPane;
-import client.gui.criteres.JPCritSelAliment;
-import client.gui.criteres.JPCritSelCategorie;
-import client.gui.criteres.JPCritSelCommande;
-import client.gui.criteres.JPCritSelRecette;
-import client.gui.criteres.JPCritSelSousCategorie;
-import client.gui.objets.dialogs.ajouts.AjoutAliment;
-import client.gui.objets.dialogs.ajouts.AjoutCatégorie;
-import client.gui.objets.dialogs.ajouts.AjoutRecette;
-import client.gui.objets.dialogs.ajouts.AjoutSousCatégorie;
-import client.gui.objets.dialogs.consults.MaCategorie;
-import client.gui.objets.dialogs.consults.MaRecette;
-import client.gui.objets.dialogs.consults.MaSousCategorie;
-import client.gui.objets.dialogs.modif.ModifAliment;
-import client.gui.objets.dialogs.modif.ModifCategorie;
-import client.gui.objets.dialogs.modif.ModifRecette;
-import client.gui.objets.dialogs.modif.ModifSousCategorie;
+import client.gui.criteres.*;
+import client.gui.objets.dialogs.ajouts.*;
+import client.gui.objets.dialogs.consults.*;
+import client.gui.objets.dialogs.modif.*;
 import client.gui.objets.dialogs.consults.MonAliment;
 import client.gui.objets.dialogs.ajouts.AjoutCommande;
 import client.gui.objets.dialogs.consults.MaCommande;
 import client.gui.objets.dialogs.modif.ModifCommande;
-import client.gui.recherche.JDRechercheAliment;
-import client.gui.recherche.JDRechercheCategorie;
-import client.gui.recherche.JDRechercheCommande;
-import client.gui.recherche.JDRechercheRecette;
-import client.gui.recherche.JDRechercheSousCategorie;
-import client.gui.table.MaJTableAliment;
-import client.gui.table.MaJTableCategorie;
-import client.gui.table.MaJTableCommande;
-import client.gui.table.MaJTableRecette;
-import client.gui.table.MaJTableSousCategorie;
+import client.gui.recherche.*;
+import client.gui.table.*;
 import client.implementation.FoodClientImpl;
 import common.interfaces.FoodModele;
 import java.rmi.Naming;
@@ -290,11 +270,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButtonCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCAActionPerformed
         try {
-            JDRechercheAliment ali = new JDRechercheAliment(null, true, "Consultater un Aliment", new JPCritSelAliment(),
+            JDRechercheAliment ali = new JDRechercheAliment(null, true,modele, "Consultater un Aliment", new JPCritSelAliment(),
                     new MaJTableAliment());
             ali.setVisible(true);
             if (ali.getObjectSelected() != null) {
-                new MonAliment(null, true, ali.getObjectSelected()).setVisible(true);
+                new MonAliment(null, true,modele, ali.getObjectSelected()).setVisible(true);
             }
 
         } catch (MaJTableInitialisationException ex) {
@@ -305,16 +285,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCAActionPerformed
 
     private void jButtonARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonARActionPerformed
-        new AjoutRecette(null, true).setVisible(true);
+        new AjoutRecette(null, true,modele).setVisible(true);
     }//GEN-LAST:event_jButtonARActionPerformed
 
     private void jButtonCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCRActionPerformed
         try {
-            JDRechercheRecette rec = new JDRechercheRecette(null, true, "Consulter une recette", new JPCritSelRecette(),
+            JDRechercheRecette rec = new JDRechercheRecette(null, true,modele, "Consulter une recette", new JPCritSelRecette(),
                     new MaJTableRecette());
             rec.setVisible(true);
             if (rec.getObjectSelected() != null) {
-                new MaRecette(null, true, rec.getObjectSelected()).setVisible(true);
+                new MaRecette(null, true,modele, rec.getObjectSelected()).setVisible(true);
             }
 
         } catch (MaJTableInitialisationException ex) {
@@ -326,11 +306,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButtonCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCCActionPerformed
         try {
-            JDRechercheCategorie cat = new JDRechercheCategorie(null, true, "Sélection d'une catégorie", new JPCritSelCategorie(),
+            JDRechercheCategorie cat = new JDRechercheCategorie(null, true,modele, "Sélection d'une catégorie", new JPCritSelCategorie(),
                     new MaJTableCategorie());
             cat.setVisible(true);
             if (cat.getObjectSelected() != null) {
-                new MaCategorie(null, true, cat.getObjectSelected()).setVisible(true);
+                new MaCategorie(null, true,modele, cat.getObjectSelected()).setVisible(true);
             }
         } catch (MaJTableInitialisationException ex) {
             JOptionPane.showMessageDialog(null,
@@ -340,16 +320,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCCActionPerformed
 
     private void jButtonACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonACActionPerformed
-        new AjoutCatégorie(null, true).setVisible(true);
+        new AjoutCatégorie(null, true,modele).setVisible(true);
     }//GEN-LAST:event_jButtonACActionPerformed
 
     private void jButtonCSCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCSCActionPerformed
         try {
-            JDRechercheSousCategorie sousCat = new JDRechercheSousCategorie(null, true, "Sélection d'une sous-catégorie", new JPCritSelSousCategorie(),
+            JDRechercheSousCategorie sousCat = new JDRechercheSousCategorie(null, true,modele, "Sélection d'une sous-catégorie", new JPCritSelSousCategorie(),
                     new MaJTableSousCategorie());
             sousCat.setVisible(true);
             if (sousCat.getObjectSelected() != null) {
-                new MaSousCategorie(null, true, sousCat.getObjectSelected()).setVisible(true);
+                new MaSousCategorie(null, true,modele, sousCat.getObjectSelected()).setVisible(true);
             }
         } catch (MaJTableInitialisationException ex) {
             JOptionPane.showMessageDialog(null,
@@ -359,16 +339,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCSCActionPerformed
 
     private void jButtonASCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonASCActionPerformed
-        new AjoutSousCatégorie(null, true).setVisible(true);
+        new AjoutSousCatégorie(null, true,modele).setVisible(true);
     }//GEN-LAST:event_jButtonASCActionPerformed
 
     private void jButtonMSCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMSCActionPerformed
         try {
-            JDRechercheSousCategorie cat = new JDRechercheSousCategorie(null, true, "Sélection d'une sous-catégorie", new JPCritSelSousCategorie(),
+            JDRechercheSousCategorie cat = new JDRechercheSousCategorie(null, true,modele, "Sélection d'une sous-catégorie", new JPCritSelSousCategorie(),
                     new MaJTableSousCategorie());
             cat.setVisible(true);
             if (cat.getObjectSelected() != null) {
-                new ModifSousCategorie(null, true, cat.getObjectSelected()).setVisible(true);
+                new ModifSousCategorie(null, true,modele, cat.getObjectSelected()).setVisible(true);
             }
         } catch (MaJTableInitialisationException ex) {
             JOptionPane.showMessageDialog(null,
@@ -378,16 +358,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonMSCActionPerformed
 
     private void jButtonAAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAAActionPerformed
-        new AjoutAliment(null, true).setVisible(true);
+        new AjoutAliment(null, true,modele).setVisible(true);
     }//GEN-LAST:event_jButtonAAActionPerformed
 
     private void jButtonMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMAActionPerformed
         try {
-            JDRechercheAliment ali = new JDRechercheAliment(null, true, "Sélection d'un aliment", new JPCritSelAliment(),
+            JDRechercheAliment ali = new JDRechercheAliment(null, true,modele, "Sélection d'un aliment", new JPCritSelAliment(),
                     new MaJTableAliment());
             ali.setVisible(true);
             if (ali.getObjectSelected() != null) {
-                new ModifAliment(null, true, ali.getObjectSelected()).setVisible(true);
+                new ModifAliment(null, true,modele, ali.getObjectSelected()).setVisible(true);
             }
         } catch (MaJTableInitialisationException ex) {
             JOptionPane.showMessageDialog(null,
@@ -398,11 +378,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButtonMCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMCActionPerformed
         try {
-            JDRechercheCategorie cat = new JDRechercheCategorie(null, true, "Sélection d'une catégorie", new JPCritSelCategorie(),
+            JDRechercheCategorie cat = new JDRechercheCategorie(null, true,modele, "Sélection d'une catégorie", new JPCritSelCategorie(),
                     new MaJTableCategorie());
             cat.setVisible(true);
             if (cat.getObjectSelected() != null) {
-                new ModifCategorie(null, true, cat.getObjectSelected()).setVisible(true);
+                new ModifCategorie(null, true,modele, cat.getObjectSelected()).setVisible(true);
             }
         } catch (MaJTableInitialisationException ex) {
             JOptionPane.showMessageDialog(null,
@@ -413,11 +393,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButtonMRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMRActionPerformed
         try {
-            JDRechercheRecette cat = new JDRechercheRecette(null, true, "Sélection d'une recette", new JPCritSelRecette(),
+            JDRechercheRecette cat = new JDRechercheRecette(null, true,modele, "Sélection d'une recette", new JPCritSelRecette(),
                     new MaJTableRecette());
             cat.setVisible(true);
             if (cat.getObjectSelected() != null) {
-                new ModifRecette(null, true, cat.getObjectSelected()).setVisible(true);
+                new ModifRecette(null, true,modele, cat.getObjectSelected()).setVisible(true);
             }
         } catch (MaJTableInitialisationException ex) {
             JOptionPane.showMessageDialog(null,
@@ -428,11 +408,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButtonCSC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCSC1ActionPerformed
         try {
-            JDRechercheCommande rec = new JDRechercheCommande(null, true, "Consulter une commande", new JPCritSelCommande(),
+            JDRechercheCommande rec = new JDRechercheCommande(null, true,modele, "Consulter une commande", new JPCritSelCommande(),
                     new MaJTableCommande());
             rec.setVisible(true);
             if (rec.getObjectSelected() != null) {
-                new MaCommande(null, true, rec.getObjectSelected()).setVisible(true);
+                new MaCommande(null, true,modele, rec.getObjectSelected()).setVisible(true);
             }
 
         } catch (MaJTableInitialisationException ex) {
@@ -443,16 +423,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCSC1ActionPerformed
 
     private void jButtonASC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonASC1ActionPerformed
-        new AjoutCommande(null, true).setVisible(true);
+        new AjoutCommande(null, true,modele).setVisible(true);
     }//GEN-LAST:event_jButtonASC1ActionPerformed
 
     private void jButtonMSC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMSC1ActionPerformed
         try {
-            JDRechercheCommande cat = new JDRechercheCommande(null, true, "Sélection d'une commande", new JPCritSelCommande(),
+            JDRechercheCommande cat = new JDRechercheCommande(null, true,modele, "Sélection d'une commande", new JPCritSelCommande(),
                     new MaJTableCommande());
             cat.setVisible(true);
             if (cat.getObjectSelected() != null) {
-                new ModifCommande(null, true, cat.getObjectSelected()).setVisible(true);
+                new ModifCommande(null, true,modele, cat.getObjectSelected()).setVisible(true);
             }
         } catch (MaJTableInitialisationException ex) {
             JOptionPane.showMessageDialog(null,

@@ -4,38 +4,31 @@
  */
 package client.gui.recherche;
 
-import be.esi.alg2.gui.outils.JDRechGenerique;
-import be.esi.alg2.gui.outils.MaJTableInitialisationException;
 import java.util.Collection;
-import javax.swing.ImageIcon;
-import resto.business.AdminFacade;
 import client.gui.criteres.JPCritSelCommande;
 import client.gui.table.MaJTableCommande;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericRecherche;
 import common.dto.CommandeDto;
-import common.exception.RestoBusinessException;
 import common.seldto.CommandeSel;
+import common.tools.CaseEnum;
+import java.rmi.RemoteException;
 
 /**
  *
  * @author g38302
  */
-public class JDRechercheCommande extends JDRechGenerique<CommandeSel, CommandeDto> {
+public class JDRechercheCommande extends GenericRecherche<CommandeSel, CommandeDto> {
 
-    public JDRechercheCommande(java.awt.Frame parent, boolean modal, String title, JPCritSelCommande crit, MaJTableCommande jT) {
-        super(parent, modal, title, crit, jT);
-        setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
+    public JDRechercheCommande(java.awt.Frame parent, boolean modal,FoodClientImpl modele, String title, JPCritSelCommande crit, MaJTableCommande jT) {
+        super(parent, modal,modele, title, crit, jT);
     }
 
     @Override
-    protected Collection<CommandeDto> recherche(CommandeSel crit) throws RestoBusinessException {
-        return AdminFacade.getCommande(crit);
+    protected Collection<CommandeDto> recherche(CommandeSel crit) throws RemoteException {
+        return modele.getBySel(CaseEnum.COMMANDE, crit);
     }
 
-    public static void main(String[] args) throws MaJTableInitialisationException {
-        new JDRechercheCommande(null, true, "Sélection d'une recette", new JPCritSelCommande(),
-                new MaJTableCommande()).setVisible(true);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.

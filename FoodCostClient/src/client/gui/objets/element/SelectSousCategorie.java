@@ -7,21 +7,27 @@ package client.gui.objets.element;
 
 import be.esi.alg2.gui.outils.JDRechGenerique;
 import be.esi.alg2.gui.outils.MaJTableInitialisationException;
-import be.esi.alg2.gui.outils.SelectObject;
 import java.util.Collection;
-import resto.business.AdminFacade;
 import client.gui.criteres.JPCritSelSousCategorie;
 import client.gui.recherche.JDRechercheSousCategorie;
 import client.gui.table.MaJTableSousCategorie;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericSelect;
 import common.dto.SousCategorieDto;
 import common.exception.RestoBusinessException;
 import common.seldto.SousCategorieSel;
+import common.tools.CaseEnum;
+import java.rmi.RemoteException;
 
 /**
  *
  * @author Gilles
  */
-public class SelectSousCategorie extends SelectObject<SousCategorieSel, SousCategorieDto> {
+public class SelectSousCategorie extends GenericSelect<SousCategorieSel, SousCategorieDto> {
+
+    public SelectSousCategorie(FoodClientImpl modele) {
+        super(modele);
+    }
 
     @Override
     protected String getShortDescription(SousCategorieDto t) {
@@ -30,25 +36,34 @@ public class SelectSousCategorie extends SelectObject<SousCategorieSel, SousCate
 
     @Override
     protected SousCategorieDto trouveObjet(String crit) throws RestoBusinessException {
-        SousCategorieSel sel;
         try {
-            int id = Integer.parseInt(crit);
-            sel = new SousCategorieSel(id);
-        } catch (NumberFormatException ex) {
-            sel = new SousCategorieSel(crit);
-        }
-        Collection<SousCategorieDto> col = AdminFacade.getSousCategorie(sel);
-        if (!col.isEmpty()) {
-            return col.iterator().next();
+            SousCategorieSel sel;
+            try {
+                int id = Integer.parseInt(crit);
+                sel = new SousCategorieSel(id);
+            } catch (NumberFormatException ex) {
+                sel = new SousCategorieSel(crit);
+            }
+            Collection<SousCategorieDto> col = modele.getBySel(CaseEnum.SOUS_CATEGORIE, sel);
+            if (!col.isEmpty()) {
+                return col.iterator().next();
+            }
+        } catch (RemoteException ex) {
+            System.out.println(ex.getMessage());
         }
         return null;
     }
 
     @Override
     protected SousCategorieDto getObjectById(Object id) throws RestoBusinessException {
-        Collection<SousCategorieDto> col = AdminFacade.getSousCategorie(new SousCategorieSel((Integer) id));
-        if (!col.isEmpty()) {
-            return col.iterator().next();
+        try {
+            Collection<SousCategorieDto> col = modele.getBySel(CaseEnum.SOUS_CATEGORIE, new SousCategorieSel((Integer) id));
+            if (!col.isEmpty()) {
+                return col.iterator().next();
+            }
+
+        } catch (RemoteException ex) {
+            System.out.println(ex.getMessage());
         }
         return null;
     }
@@ -60,7 +75,7 @@ public class SelectSousCategorie extends SelectObject<SousCategorieSel, SousCate
 
     @Override
     protected JDRechGenerique<SousCategorieSel, SousCategorieDto> getPanelRecherche() throws MaJTableInitialisationException {
-        return new JDRechercheSousCategorie(null, true, "Sélection d'une sous-catégorie", new JPCritSelSousCategorie(), new MaJTableSousCategorie());
+        return new JDRechercheSousCategorie(null, true,modele, "Sélection d'une sous-catégorie", new JPCritSelSousCategorie(), new MaJTableSousCategorie());
     }
 
     @Override

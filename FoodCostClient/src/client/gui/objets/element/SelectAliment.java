@@ -7,21 +7,27 @@ package client.gui.objets.element;
 
 import be.esi.alg2.gui.outils.JDRechGenerique;
 import be.esi.alg2.gui.outils.MaJTableInitialisationException;
-import be.esi.alg2.gui.outils.SelectObject;
 import java.util.Collection;
-import resto.business.AdminFacade;
 import client.gui.criteres.JPCritSelAliment;
 import client.gui.recherche.JDRechercheAliment;
 import client.gui.table.MaJTableAliment;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericSelect;
 import common.dto.AlimentDto;
 import common.exception.RestoBusinessException;
 import common.seldto.AlimentSel;
+import common.tools.CaseEnum;
+import java.rmi.RemoteException;
 
 /**
  *
  * @author Gilles
  */
-public class SelectAliment extends SelectObject<AlimentSel, AlimentDto> {
+public class SelectAliment extends GenericSelect<AlimentSel, AlimentDto> {
+
+    public SelectAliment(FoodClientImpl modele) {
+        super(modele);
+    }
 
     @Override
     protected String getShortDescription(AlimentDto t) {
@@ -30,25 +36,34 @@ public class SelectAliment extends SelectObject<AlimentSel, AlimentDto> {
 
     @Override
     protected AlimentDto trouveObjet(String crit) throws RestoBusinessException {
-        AlimentSel sel;
         try {
-            int id = Integer.parseInt(crit);
-            sel = new AlimentSel(id);
-        } catch (NumberFormatException ex) {
-            sel = new AlimentSel(crit);
-        }
-        Collection<AlimentDto> col = AdminFacade.getAliment(sel);
-        if (!col.isEmpty()) {
-            return col.iterator().next();
+            AlimentSel sel;
+            try {
+                int id = Integer.parseInt(crit);
+                sel = new AlimentSel(id);
+            } catch (NumberFormatException ex) {
+                sel = new AlimentSel(crit);
+            }
+            Collection<AlimentDto> col = modele.getBySel(CaseEnum.ALIMENT, sel);
+            if (!col.isEmpty()) {
+                return col.iterator().next();
+            }
+        } catch (RemoteException ex) {
+            System.out.println(ex.getMessage());
         }
         return null;
     }
 
     @Override
     protected AlimentDto getObjectById(Object id) throws RestoBusinessException {
-        Collection<AlimentDto> col = AdminFacade.getAliment(new AlimentSel((Integer) id));
-        if (!col.isEmpty()) {
-            return col.iterator().next();
+        try {
+            Collection<AlimentDto> col = modele.getBySel(CaseEnum.ALIMENT, new AlimentSel((Integer) id));
+            if (!col.isEmpty()) {
+                return col.iterator().next();
+            }
+
+        } catch (RemoteException ex) {
+            System.out.println(ex.getMessage());
         }
         return null;
     }
@@ -60,7 +75,7 @@ public class SelectAliment extends SelectObject<AlimentSel, AlimentDto> {
 
     @Override
     protected JDRechGenerique<AlimentSel, AlimentDto> getPanelRecherche() throws MaJTableInitialisationException {
-        return new JDRechercheAliment(null, true, "Sélection d'édition", new JPCritSelAliment(), new MaJTableAliment());
+        return new JDRechercheAliment(null, true,modele, "Sélection d'édition", new JPCritSelAliment(), new MaJTableAliment());
     }
 
     @Override

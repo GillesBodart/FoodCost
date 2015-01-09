@@ -4,9 +4,11 @@
  */
 package client.gui.objets.dialogs.consults;
 
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import client.gui.objets.dialogs.MonJFileChooser;
+import client.implementation.FoodClientImpl;
+import client.tools.ClientTool;
+import client.tools.GenericDialog;
 import common.dto.RecetteDto;
 import common.tools.CommonTool;
 
@@ -14,30 +16,19 @@ import common.tools.CommonTool;
  *
  * @author Gilles
  */
-public class MaRecette extends javax.swing.JDialog {
+public class MaRecette extends GenericDialog {
     
-    private RecetteDto rec;
+    private final RecetteDto rec;
 
-    /**
-     * Creates new form MaRecette
-     */
-    public MaRecette(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-        initComponents();
-        setLocationRelativeTo(null);
-        
-        
-    }
     
-    public MaRecette(java.awt.Frame parent, boolean modal, RecetteDto rec) {
-        this(parent, modal);
+    public MaRecette(java.awt.Frame parent, boolean modal,FoodClientImpl modele, RecetteDto rec) {
+        super(parent, modal,modele,"Apperçu de la recette : " + rec.getLibelle());
+        initComponents();
         this.rec = rec;
         this.jLabelTitre.setText(rec.getLibelle());
         this.jLabelPrix.setText("" + CommonTool.round(rec.getRecPrix(), 4));
         this.jLabelPrixPP.setText("" + CommonTool.round(rec.getRecPrix() / rec.getNbPers(), 4));
         this.jListeIngredient1.setElmnt(rec.getListeAliments(), false);
-        setTitle("Apperçu de la recette : " + rec.getLibelle());
     }
 
     /**
@@ -56,7 +47,7 @@ public class MaRecette extends javax.swing.JDialog {
         jLabelPrixPP = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jListeIngredient1 = new client.gui.objets.element.JListeIngredient();
+        jListeIngredient1 = new client.gui.objets.element.JListeIngredient(modele);
         jLabelPrixPP1 = new javax.swing.JLabel();
         jLabelPrix1 = new javax.swing.JLabel();
 
@@ -172,7 +163,7 @@ public class MaRecette extends javax.swing.JDialog {
         try {
             MonJFileChooser jfc = new MonJFileChooser();
             jfc.setVisible(true);
-            CommonTool.enregistrer(jfc.getUrl(), rec.getLibelle(), rec.getContenu());
+            ClientTool.enregistrer(jfc.getUrl(), rec.getLibelle(), rec.getContenu());
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Un problème d'acces au fichier est survenu ... \n" + ex.getMessage(), "Error Massage",
@@ -180,47 +171,6 @@ public class MaRecette extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MaRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                MaRecette dialog = new MaRecette(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

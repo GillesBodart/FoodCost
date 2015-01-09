@@ -83,7 +83,7 @@ public class AjoutCatégorie extends GenericDialog{
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            modele.add(CaseEnum.CATEGORIE, new CategorieDto(jTextNom.getText()));
+            modele.add(CaseEnum.CATEGORIE, new CategorieDto(jTextNom.getText()),null);
             this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,

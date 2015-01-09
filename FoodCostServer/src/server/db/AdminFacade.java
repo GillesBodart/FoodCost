@@ -31,7 +31,6 @@ import java.util.List;
  * @author Gilles
  */
 public class AdminFacade {
-
     public static List<AlimentDto> getAllAliments() throws RestoBusinessException {
         AlimentSel aliSel = new AlimentSel(0);
         try {
@@ -723,6 +722,82 @@ public class AdminFacade {
                 msg = ex.getMessage() + "\n" + msg;
             } finally {
                 throw new RestoBusinessException("Ajout de catégorie impossible! \n" + msg);
+            }
+        }
+    }
+
+    public static int updateCommande(CommandeDto commandeDto) throws RestoBusinessException {
+        try {
+            DBManager.startTransaction();
+            int ret = 1;
+            CommandeDB.updateDb(commandeDto);
+            DBManager.valideTransaction();
+            return ret;
+        } catch (RestoDbException eDB) {
+            String msg = eDB.getMessage();
+            try {
+                DBManager.annuleTransaction();
+            } catch (RestoDbException ex) {
+                msg = ex.getMessage() + "\n" + msg;
+            } finally {
+                throw new RestoBusinessException("Ajout de catégorie impossible! \n" + msg);
+            }
+        }
+       
+    }
+
+
+    public static int AjoutElementCommande(ListeRecetteDto listeRecetteDto, ComposantDto composantDto) throws RestoBusinessException {
+        try {
+            DBManager.startTransaction();
+            int ret = ListeRecetteDB.insertCompoDb(listeRecetteDto, composantDto);
+            DBManager.valideTransaction();
+            return ret;
+        } catch (RestoDbException eDB) {
+            String msg = eDB.getMessage();
+            try {
+                DBManager.annuleTransaction();
+            } catch (RestoDbException ex) {
+                msg = ex.getMessage() + "\n" + msg;
+            } finally {
+                throw new RestoBusinessException("Ajout de recette impossible! \n" + msg);
+            }
+        }
+    }
+
+    public static int AjoutIngredient(ListeAlimentDto listeAlimentDto, IngredientDto ingredientDto) throws RestoBusinessException {
+        try {
+            DBManager.startTransaction();
+            int ret = ListeAlimentDB.insertIngrDb(listeAlimentDto, ingredientDto);
+            DBManager.valideTransaction();
+            return ret;
+        } catch (RestoDbException eDB) {
+            String msg = eDB.getMessage();
+            try {
+                DBManager.annuleTransaction();
+            } catch (RestoDbException ex) {
+                msg = ex.getMessage() + "\n" + msg;
+            } finally {
+                throw new RestoBusinessException("Ajout de recette impossible! \n" + msg);
+            }
+        }
+         
+    }
+
+    public static int updateSousCategorie(SousCategorieDto sousCategorieDto) throws RestoBusinessException {
+        try {
+            DBManager.startTransaction();
+            int ret = SousCategorieDB.updateDb(sousCategorieDto);
+            DBManager.valideTransaction();
+            return ret;
+        } catch (RestoDbException eDB) {
+            String msg = eDB.getMessage();
+            try {
+                DBManager.annuleTransaction();
+            } catch (RestoDbException ex) {
+                msg = ex.getMessage() + "\n" + msg;
+            } finally {
+                throw new RestoBusinessException("Ajout de recette impossible! \n" + msg);
             }
         }
     }

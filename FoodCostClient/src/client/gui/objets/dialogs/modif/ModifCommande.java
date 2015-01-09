@@ -5,49 +5,36 @@
 package client.gui.objets.dialogs.modif;
 
 import client.gui.objets.dialogs.ajouts.AjoutComposant;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import resto.business.AdminFacade;
-import resto.db.ListeRecetteDB;
-import resto.db.CommandeDB;
 import client.gui.objets.element.JBoutComp;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.CommandeDto;
 import common.dto.ComposantDto;
 import common.dto.ModificationCompDto;
-import common.exception.RestoDbException;
+import common.tools.CaseEnum;
 import common.tools.CommonTool;
 
 /**
  *
  * @author Gilles
  */
-public class ModifCommande extends javax.swing.JDialog {
+public class ModifCommande extends GenericDialog {
 
     private CommandeDto com;
     private ComposantDto lastIng;
     private JBoutComp lastPanelIngre;
     private double prixTmp;
 
-    /**
-     * Creates new form MaCommande
-     */
-    public ModifCommande(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public ModifCommande(java.awt.Frame parent, boolean modal, FoodClientImpl modele, CommandeDto com) {
+        super(parent, modal, modele, "Modification de la commande de : " + com.getLibelle());
         initComponents();
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-
-    }
-
-    public ModifCommande(java.awt.Frame parent, boolean modal, CommandeDto com) {
-        this(parent, modal);
         this.com = com;
         this.jTextFieldTitre.setText(com.getLibelle());
         prixTmp = com.getRecPrix();
         this.jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
         this.jLabelPrixPP.setText("" + CommonTool.round(prixTmp / com.getNbPers(), 4));
         this.jListeRecette1.setElmnt(com.getListeRecettes(), true);
-        setLocationRelativeTo(null);
-        setTitle("Modification de la commande de : " + com.getLibelle());
     }
 
     /**
@@ -69,7 +56,7 @@ public class ModifCommande extends javax.swing.JDialog {
         jTextFieldTitre = new javax.swing.JTextField();
         jButtonModif = new javax.swing.JButton();
         jButtonAjout = new javax.swing.JButton();
-        jListeRecette1 = new client.gui.objets.element.JListeRecette();
+        jListeRecette1 = new client.gui.objets.element.JListeRecette(modele);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -213,16 +200,16 @@ public class ModifCommande extends javax.swing.JDialog {
             if (reply == JOptionPane.YES_OPTION) {
                 for (ModificationCompDto mod : jListeRecette1.getModif()) {
                     if (mod.getEnded() == 1) {
-                        AdminFacade.modifListeRecette(com, mod.getId());
+                        modele.update(CaseEnum.LISTE_RECETTE, com, mod.getId());
                     }
                     if (mod.getEnded() == 2) {
-                        AdminFacade.supprimeCompo(com,mod.getId());
+                        modele.delete(com, mod.getId());
                     }
                 }
                 recalc();
                 com.setRecPrix(prixTmp);
-                //CommandeDB.majDB(com);
-                CommandeDB.updateDb(com);
+                //CommandeDB.majDB(com);    
+                modele.update(CaseEnum.MAJ_COMMANDE, com, null);
                 dispose();
             }
         } catch (Exception ex) {
@@ -238,13 +225,13 @@ public class ModifCommande extends javax.swing.JDialog {
         if (aI.getExit() == 0) {
             try {
                 lastIng = aI.getComp();
-                lastPanelIngre = new JBoutComp(lastIng, com.getListeRecettes());
+                lastPanelIngre = new JBoutComp(modele, lastIng, com.getListeRecettes());
                 jListeRecette1.addElem(lastPanelIngre);
                 prixTmp += lastIng.getPrix();
                 jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
                 jLabelPrixPP.setText("" + CommonTool.round(prixTmp / com.getNbPers(), 4));
-                ListeRecetteDB.insertCompoDb(com.getListeRecettes(), lastIng);
-            } catch (RestoDbException ex) {
+                modele.add(CaseEnum.AJOUT_COMPOSANT_RECETTE, com.getListeRecettes(), lastIng);
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
                         "Tu vas tout casser !!\n" + ex.getMessage(), "Error Massage",
                         JOptionPane.ERROR_MESSAGE);
@@ -252,47 +239,6 @@ public class ModifCommande extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButtonAjoutActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifCommande.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifCommande.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifCommande.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifCommande.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ModifCommande dialog = new ModifCommande(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAjout;
     private javax.swing.JButton jButtonModif;

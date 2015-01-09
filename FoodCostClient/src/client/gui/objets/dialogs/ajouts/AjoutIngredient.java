@@ -41,7 +41,7 @@ public class AjoutIngredient extends GenericDialog {
         jLabel2 = new javax.swing.JLabel();
         jTextQuan = new javax.swing.JTextField();
         jToggleButton1 = new javax.swing.JToggleButton();
-        selectAliment1 = new client.gui.objets.element.SelectAliment();
+        selectAliment1 = new client.gui.objets.element.SelectAliment(modele);
         jComboBox1 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

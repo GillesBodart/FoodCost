@@ -4,37 +4,29 @@
  */
 package client.gui.recherche;
 
-import be.esi.alg2.gui.outils.JDRechGenerique;
-import be.esi.alg2.gui.outils.MaJTableInitialisationException;
 import java.util.Collection;
-import javax.swing.ImageIcon;
-import resto.business.AdminFacade;
 import client.gui.criteres.JPCritSelCategorie;
 import client.gui.table.MaJTableCategorie;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericRecherche;
 import common.dto.CategorieDto;
-import common.exception.RestoBusinessException;
 import common.seldto.CategorieSel;
+import common.tools.CaseEnum;
+import java.rmi.RemoteException;
 
 /**
  *
  * @author g38302
  */
-public class JDRechercheCategorie extends JDRechGenerique<CategorieSel, CategorieDto> {
+public class JDRechercheCategorie extends GenericRecherche<CategorieSel, CategorieDto> {
 
-    public JDRechercheCategorie(java.awt.Frame parent, boolean modal, String title, JPCritSelCategorie crit, MaJTableCategorie jT) {
-        super(parent, modal, title, crit, jT);
-        setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
+    public JDRechercheCategorie(java.awt.Frame parent, boolean modal, FoodClientImpl modele, String title, JPCritSelCategorie crit, MaJTableCategorie jT) {
+        super(parent, modal, modele, title, crit, jT);
     }
 
     @Override
-    protected Collection<CategorieDto> recherche(CategorieSel crit) throws RestoBusinessException {
-        return AdminFacade.getCategorie(crit);
-    }
-
-    public static void main(String[] args) throws MaJTableInitialisationException {
-        new JDRechercheCategorie(null, true, "Sélection d'une catégorie", new JPCritSelCategorie(),
-                new MaJTableCategorie()).setVisible(true);
+    protected Collection<CategorieDto> recherche(CategorieSel crit) throws RemoteException {
+        return modele.getBySel(CaseEnum.CATEGORIE, crit);
     }
 
     /**

@@ -4,48 +4,34 @@
  */
 package client.gui.objets.dialogs.modif;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.SousCategorieDto;
-import common.exception.RestoBusinessException;
-import common.exception.RestoDTOException;
-import common.exception.RestoDbException;
-import java.awt.HeadlessException;
-import javax.swing.ImageIcon;
+import common.tools.CaseEnum;
 import javax.swing.JOptionPane;
-import resto.business.AdminFacade;
-import resto.db.SousCategorieDB;
 
 /**
  *
  * @author Gilles
  */
-public class ModifSousCategorie extends javax.swing.JDialog {
+public class ModifSousCategorie extends GenericDialog {
 
     private SousCategorieDto sousCat;
 
-    /**
-     * Creates new form MaSousCategorie
-     */
-    public ModifSousCategorie(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
 
-    public ModifSousCategorie(java.awt.Frame parent, boolean modal, SousCategorieDto sousCat) {
-        this(parent, modal);
+    public ModifSousCategorie(java.awt.Frame parent, boolean modal,FoodClientImpl modele, SousCategorieDto sousCat) {
+        super(parent, modal,modele,"Modification de la sous-catégorie : " + sousCat.getNom());
+        initComponents();
         try {
-            this.sousCat = sousCat;
             this.sousCat = sousCat;
             this.jTextFieldNom.setText(sousCat.getNom());
             this.selectCategorie1.setSelectionByObject(sousCat.getCategorie());
-            this.jLabelNbE.setText(AdminFacade.getNbElem(sousCat) + "");
-            setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-        } catch (RestoBusinessException ex) {
+            this.jLabelNbE.setText(modele.getNbElem(CaseEnum.SOUS_CATEGORIE,sousCat) + "");
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Fais un peu attention tu vas tout bousiller " + ex.getMessage(), "Error Massage",
                     JOptionPane.ERROR_MESSAGE);
         }
-        setLocationRelativeTo(null);
-        setTitle("Modification de la sous-catégorie : " + sousCat.getNom());
     }
 
     /**
@@ -63,7 +49,7 @@ public class ModifSousCategorie extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jLabelNbE = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        selectCategorie1 = new client.gui.objets.element.SelectCategorie();
+        selectCategorie1 = new client.gui.objets.element.SelectCategorie(modele);
         jTextFieldNom = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -166,57 +152,16 @@ public class ModifSousCategorie extends javax.swing.JDialog {
             sousCat.setCategorie(selectCategorie1.getObjectSelected());
             int reply = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment modifier cette sous-catégorie ?", "Veuillez confirmer", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
-                SousCategorieDB.updateDb(sousCat);
+                modele.update(CaseEnum.MAJ_SOUS_CATEGORIE, sousCat, null);
                 dispose();
             }
-        } catch (RestoDTOException | HeadlessException | RestoDbException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,
                     "Tu vas tout casser !!" + ex.getMessage(), "Error Massage",
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifSousCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifSousCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifSousCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifSousCategorie.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ModifSousCategorie dialog = new ModifSousCategorie(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

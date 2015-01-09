@@ -5,6 +5,8 @@
 package client.gui.objets.element;
 
 import client.gui.objets.dialogs.ChoixModifComp;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericPanel;
 import common.dto.ComposantDto;
 import common.dto.ListeRecetteDto;
 import common.dto.ModificationCompDto;
@@ -14,7 +16,7 @@ import common.tools.CommonTool;
  *
  * @author Gilles
  */
-public class JBoutComp extends javax.swing.JPanel {
+public class JBoutComp extends GenericPanel {
 
     private ListeRecetteDto lst;
     private ComposantDto ing;
@@ -26,7 +28,8 @@ public class JBoutComp extends javax.swing.JPanel {
     /**
      * Creates new form JPanelIngre
      */
-    public JBoutComp(ComposantDto ing, ListeRecetteDto lst) {
+    public JBoutComp(FoodClientImpl modele,ComposantDto ing, ListeRecetteDto lst) {
+        super(modele);
         initComponents();
         this.lst = lst;
         this.ing = ing;
@@ -69,7 +72,7 @@ public class JBoutComp extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInActionPerformed
-        ChoixModifComp modif = new ChoixModifComp(null, true, ing, lst);
+        ChoixModifComp modif = new ChoixModifComp(null, true,modele, ing, lst);
         modif.setVisible(true);
         this.ing = modif.getCompo();
         if (modif.isModifEnded()) {

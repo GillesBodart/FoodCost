@@ -4,18 +4,21 @@
  */
 package client.gui.objets.element;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericPanel;
 import common.dto.IngredientDto;
 
 /**
  *
  * @author Gilles
  */
-public class JPanelIngre extends javax.swing.JPanel {
+public class JPanelIngre extends GenericPanel {
 
     /**
      * Creates new form JPanelIngre
      */
-    public JPanelIngre(IngredientDto ing) {
+    public JPanelIngre(FoodClientImpl modele,IngredientDto ing) {
+        super(modele);
         initComponents();
         jLabelNom.setText(ing.getId().getLibelle());
         jLabelQuantité.setText("" + ing.getQte());

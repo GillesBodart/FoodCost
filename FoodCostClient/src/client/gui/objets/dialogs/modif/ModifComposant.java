@@ -4,38 +4,30 @@
  */
 package client.gui.objets.dialogs.modif;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.ComposantDto;
 import common.dto.ListeRecetteDto;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Gilles
  */
-public class ModifComposant extends javax.swing.JDialog {
+public class ModifComposant extends GenericDialog {
 
     private ComposantDto compo;
     private ListeRecetteDto list;
     private int exit = 0;
 
-    /**
-     * Creates new form AjoutComposant
-     */
-    public ModifComposant(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-        initComponents();
-        setLocationRelativeTo(null);
-    }
 
-    public ModifComposant(java.awt.Frame parent, boolean modal, ComposantDto compo, ListeRecetteDto list) {
-        this(parent, modal);
+    public ModifComposant(java.awt.Frame parent, boolean modal,FoodClientImpl modele, ComposantDto compo, ListeRecetteDto list) {
+        super(parent, modal,modele,"Modification du composant");
+        initComponents();
         this.compo = compo;
         this.selectRecette1.setSelectionByObject(compo.getId());
         this.jTextQuan.setText("" + compo.getQte());
         this.list = list;
-        setTitle("Modification du composant");
     }
 
     /**
@@ -53,7 +45,7 @@ public class ModifComposant extends javax.swing.JDialog {
         jToggleButton1 = new javax.swing.JToggleButton();
         jToggleButton2 = new javax.swing.JToggleButton();
         jLabel3 = new javax.swing.JLabel();
-        selectRecette1 = new client.gui.objets.element.SelectRecette();
+        selectRecette1 = new client.gui.objets.element.SelectRecette(modele);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -168,47 +160,6 @@ public class ModifComposant extends javax.swing.JDialog {
         return compo;
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifComposant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifComposant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifComposant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifComposant.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ModifComposant dialog = new ModifComposant(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

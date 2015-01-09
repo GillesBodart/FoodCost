@@ -4,6 +4,8 @@
  */
 package client.gui.objets.element;
 
+import client.implementation.FoodClientImpl;
+import client.tools.GenericPanel;
 import common.dto.ComposantDto;
 import common.tools.CommonTool;
 
@@ -11,12 +13,13 @@ import common.tools.CommonTool;
  *
  * @author Gilles
  */
-public class JPanelComp extends javax.swing.JPanel {
+public class JPanelComp extends GenericPanel {
 
     /**
      * Creates new form JPanelIngre
      */
-    public JPanelComp(ComposantDto ing) {
+    public JPanelComp(FoodClientImpl modele,ComposantDto ing) {
+        super(modele);
         initComponents();
         jLabelNom.setText(ing.getId().getLibelle());
         jLabelQuantité.setText("" + ing.getQte());

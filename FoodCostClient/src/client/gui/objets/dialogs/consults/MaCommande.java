@@ -44,7 +44,7 @@ public class MaCommande extends GenericDialog {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabelPrix1 = new javax.swing.JLabel();
-        jListeRecette1 = new client.gui.objets.element.JListeRecette();
+        jListeRecette1 = new client.gui.objets.element.JListeRecette(modele);
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

@@ -13,7 +13,7 @@ import java.rmi.Naming;
  *
  * @author Gilles
  */
-public class test {
+public class TestRMINoIP {
 
     private static FoodClientImpl modele;
 

@@ -52,7 +52,7 @@ public class AjoutRecette extends GenericDialog {
         jTextCouv = new javax.swing.JTextField();
         jButtonAI = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jListIngr = new client.gui.objets.element.JListeIngredient();
+        jListIngr = new client.gui.objets.element.JListeIngredient(modele);
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -217,7 +217,7 @@ public class AjoutRecette extends GenericDialog {
         aI.setVisible(true);
         if (aI.getExit() == 0) {
             lastIng = aI.getIngre();
-            lastPanelIngre = new JPanelIngre(lastIng);
+            lastPanelIngre = new JPanelIngre(modele,lastIng);
             jListIngr.addElem(lastPanelIngre);
             prixTmp += lastIng.getPrix();
             lstAli.add(lastIng);
@@ -232,7 +232,7 @@ public class AjoutRecette extends GenericDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             recette = new RecetteDto(0, jTextNom.getText(), new ListeAlimentDto(0, 0, lstAli), prixTmp, Integer.parseInt(jTextCouv.getText()));
-            modele.add(CaseEnum.RECETTE, recette);
+            modele.add(CaseEnum.RECETTE, recette,null);
             this.dispose();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,

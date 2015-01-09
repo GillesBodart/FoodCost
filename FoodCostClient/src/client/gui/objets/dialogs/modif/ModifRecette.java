@@ -4,40 +4,31 @@
  */
 package client.gui.objets.dialogs.modif;
 
-import javax.swing.ImageIcon;
 import client.gui.objets.dialogs.ajouts.AjoutIngredient;
 import javax.swing.JOptionPane;
-import resto.business.AdminFacade;
-import resto.db.ListeAlimentDB;
 import client.gui.objets.element.JBoutIngre;
+import client.implementation.FoodClientImpl;
+import client.tools.GenericDialog;
 import common.dto.IngredientDto;
 import common.dto.ModificationIngreDto;
 import common.dto.RecetteDto;
-import common.exception.RestoDbException;
+import common.tools.CaseEnum;
 import common.tools.CommonTool;
 
 /**
  *
  * @author Gilles
  */
-public class ModifRecette extends javax.swing.JDialog {
+public class ModifRecette extends GenericDialog {
 
     private RecetteDto rec;
     private IngredientDto lastIng;
     private JBoutIngre lastPanelIngre;
     private double prixTmp;
 
-    /**
-     * Creates new form MaRecette
-     */
-    public ModifRecette(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public ModifRecette(java.awt.Frame parent, boolean modal,FoodClientImpl modele, RecetteDto rec) {
+        super(parent, modal,modele,"Modification de la recette : " + rec.getLibelle());
         initComponents();
-setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
-    }
-
-    public ModifRecette(java.awt.Frame parent, boolean modal, RecetteDto rec) {
-        this(parent, modal);
         this.rec = rec;
         this.jTextFieldTitre.setText(rec.getLibelle());
         this.jTextFieldNbPers.setText("" + rec.getNbPers());
@@ -45,8 +36,6 @@ setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImag
         this.jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
         this.jLabelPrixPP.setText("" + CommonTool.round(prixTmp / rec.getNbPers(), 4));
         this.jListeIngredient1.setElmnt(rec.getListeAliments(), true);
-        setLocationRelativeTo(null);
-        setTitle("Modification de la recette : " + rec.getLibelle());
     }
 
     /**
@@ -65,7 +54,7 @@ setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImag
         jLabelPrixPP = new javax.swing.JLabel();
         jButtonQuitter = new javax.swing.JButton();
         jButtonRaf = new javax.swing.JButton();
-        jListeIngredient1 = new client.gui.objets.element.JListeIngredient();
+        jListeIngredient1 = new client.gui.objets.element.JListeIngredient(modele);
         jTextFieldTitre = new javax.swing.JTextField();
         jLabelNbPers = new javax.swing.JLabel();
         jTextFieldNbPers = new javax.swing.JTextField();
@@ -231,16 +220,15 @@ setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImag
             if (reply == JOptionPane.YES_OPTION) {
                 for (ModificationIngreDto mod : jListeIngredient1.getModif()) {
                     if (mod.getEnded() == 1) {
-                        AdminFacade.modifListeAli(rec,mod.getId());
+                        modele.update(CaseEnum.LISTE_ALIMENT,mod.getId(),null);
                     }
                     if (mod.getEnded() == 2) {
-                        AdminFacade.supprimeIngre(rec,mod.getId());
+                        modele.delete(rec,mod.getId());
                     }
                 }
                 recalc();
                 rec.setRecPrix(prixTmp);
-                AdminFacade.majDBFromRecette(rec);
-
+                modele.update(CaseEnum.RECETTE, rec, null);
                 dispose();
             }
         } catch (Exception ex) {
@@ -256,13 +244,13 @@ setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImag
         if (aI.getExit() == 0) {
             try {
                 lastIng = aI.getIngre();
-                lastPanelIngre = new JBoutIngre(lastIng, rec.getListeAliments());
+                lastPanelIngre = new JBoutIngre(modele,lastIng, rec.getListeAliments());
                 jListeIngredient1.addElem(lastPanelIngre);
                 prixTmp += lastIng.getPrix();
                 jLabelPrix.setText("" + CommonTool.round(prixTmp, 4));
                 jLabelPrixPP.setText("" + CommonTool.round(prixTmp / Integer.parseInt(jTextFieldNbPers.getText()), 4));
-                ListeAlimentDB.insertIngrDb(rec.getListeAliments(), lastIng);
-            } catch (RestoDbException ex) {
+                modele.add(CaseEnum.INGREDIENT, rec.getListeAliments(), lastIng);
+            } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null,
                         "Tu vas tout casser !!\n" + ex.getMessage(), "Error Massage",
                         JOptionPane.ERROR_MESSAGE);
@@ -270,47 +258,6 @@ setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImag
         }
     }//GEN-LAST:event_jButtonAjoutActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModifRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModifRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModifRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModifRecette.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ModifRecette dialog = new ModifRecette(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAjout;
     private javax.swing.JButton jButtonModif;

@@ -84,7 +84,7 @@ public class ChoixModifComp extends GenericDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ModifComposant modif = new ModifComposant(null, true, cmp, lst);
+        ModifComposant modif = new ModifComposant(null, true,modele, cmp, lst);
         modif.setVisible(true);
         this.cmp = modif.getCompo();
         isModif = true;
