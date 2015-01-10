@@ -4,6 +4,7 @@
  */
 package common.dto;
 
+import common.tools.GenericDto;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

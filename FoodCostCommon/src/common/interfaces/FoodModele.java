@@ -7,12 +7,12 @@ package common.interfaces;
 
 import common.dto.CommandeDto;
 import common.dto.ComposantDto;
-import common.dto.GenericDto;
+import common.tools.GenericDto;
 import common.dto.IngredientDto;
 import common.dto.ListeAlimentDto;
 import common.dto.ListeRecetteDto;
 import common.dto.RecetteDto;
-import common.seldto.GenericSel;
+import common.tools.GenericSel;
 import common.tools.CaseEnum;
 import java.rmi.Remote;
 import java.rmi.RemoteException;

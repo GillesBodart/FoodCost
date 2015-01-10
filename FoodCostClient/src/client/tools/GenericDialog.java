@@ -22,7 +22,7 @@ public class GenericDialog extends JDialog {
         super(owner, modal);
         setLocationRelativeTo(null);
         setTitle(title);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
+        setIconImage(new ImageIcon("Logo.jpg").getImage());
         this.modele=modele;
     }
     

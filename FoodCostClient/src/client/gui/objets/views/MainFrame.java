@@ -34,8 +34,9 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
 
         try {
-            FoodModele fm = (FoodModele) Naming.lookup("rmi://gillesbodart.ddns.net:1099/FoodModele1");
+            FoodModele fm = (FoodModele) Naming.lookup("rmi://gillesbodart.ddns.net:1099/FoodSocket1");
             modele = new FoodClientImpl(fm);
+            System.out.println("Connected at FoodSocket1");
             initComponents();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -67,7 +68,7 @@ public class MainFrame extends javax.swing.JFrame {
         jButtonASC1 = new javax.swing.JButton();
         jButtonMSC1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButtonAR.setFont(new java.awt.Font("Traditional Arabic", 1, 24)); // NOI18N
         jButtonAR.setText("Ajouter recette");
@@ -256,7 +257,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jButtonCSC, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonMSC)
                     .addComponent(jButtonASC, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jButtonCSC1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonMSC1)

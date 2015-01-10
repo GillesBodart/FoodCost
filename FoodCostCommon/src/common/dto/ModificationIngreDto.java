@@ -4,6 +4,8 @@
  */
 package common.dto;
 
+import common.tools.GenericDto;
+
 /**
  *
  * @author Gilles

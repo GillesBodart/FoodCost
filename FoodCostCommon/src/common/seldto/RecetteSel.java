@@ -4,6 +4,7 @@
  */
 package common.seldto;
 
+import common.tools.GenericSel;
 import common.dto.ListeAlimentDto;
 import common.exception.RestoDTOException;
 import java.io.Serializable;

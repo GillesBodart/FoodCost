@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package common.seldto;
+package common.tools;
 
 import java.io.Serializable;
 

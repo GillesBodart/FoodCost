@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package common.dto;
+package common.tools;
 
 import be.esi.alg2.dto.Dto;
 import java.io.Serializable;

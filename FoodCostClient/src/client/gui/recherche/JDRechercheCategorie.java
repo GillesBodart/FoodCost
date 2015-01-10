@@ -26,6 +26,8 @@ public class JDRechercheCategorie extends GenericRecherche<CategorieSel, Categor
 
     @Override
     protected Collection<CategorieDto> recherche(CategorieSel crit) throws RemoteException {
+        Collection<CategorieDto> test = modele.getBySel(CaseEnum.CATEGORIE, crit);
+        for (CategorieDto elm : test) System.out.println(elm.getId());
         return modele.getBySel(CaseEnum.CATEGORIE, crit);
     }
 

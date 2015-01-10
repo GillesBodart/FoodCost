@@ -22,7 +22,6 @@ public class MaJTableCategorie extends MaJTable<CategorieDto> {
         this();
         setFont(new java.awt.Font("Traditional Arabic", 0, 24));
         setData(data);
-
     }
 
     @Override

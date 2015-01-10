@@ -25,7 +25,7 @@ public abstract class GenericRecherche<T,Q> extends JDRechGenerique<T, Q>{
         super(parent, modal, title, crit, jT);
         this.modele = modele;
         setLocationRelativeTo(null);
-        setIconImage(new ImageIcon(this.getClass().getResource("/img/Logo.jpg")).getImage());
+        setIconImage(new ImageIcon("Logo.jpg").getImage());
     }
     
     

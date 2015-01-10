@@ -4,6 +4,7 @@
  */
 package common.dto;
 
+import common.tools.GenericDto;
 import common.exception.RestoDTOException;
 import common.tools.Unit;
 

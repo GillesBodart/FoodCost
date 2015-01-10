@@ -88,7 +88,6 @@ public class CategorieDB {
         } catch (java.sql.SQLException eSQL) {
             throw new RestoDbException("Instanciation de Catégorie impossible:\rSQLException: " + eSQL.getMessage());
         }
-
         return al;
     }
 

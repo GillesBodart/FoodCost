@@ -5,6 +5,8 @@
  */
 package server.implementation;
 
+import common.tools.GenericSel;
+import common.tools.GenericDto;
 import common.dto.*;
 import common.interfaces.FoodModele;
 import common.seldto.*;
